@@ -35,21 +35,28 @@ def login():
         if request.form['username'] != 'admin' or request.form['password'] != 'admin':
             error = 'Invalid Credentials. Please try again.'
         else:
-            return redirect(url_for('index'))
+            return redirect(url_for('menu'))
     return render_template('login.html', error=error)
 
 @app.route("/menu")
 def menu():
-    error = None
-    return render_template ("menu.html", error=error)
+    return render_template (
+        "menu.html"
+    )
 
-@app.route("/list")
+@app.route("/tables")
 def index():
     tables = dbm.get_table_list()
     return render_template(
         "tables.html", table_list=tables, database_file=DATABASE_FILE
     )
 
+@app.route("/editor")
+def editor():
+    tables = dbm.get_table_list()
+    return render_template(
+        "editor.html", table_list=tables, database_file=DATABASE_FILE
+    )
 
 # The table route displays the content of a table
 @app.route("/table_details/<table_name>")

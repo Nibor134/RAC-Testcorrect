@@ -10,13 +10,12 @@
 </head>
 <body>
 <main>
-    <h1>Database onderzoek</h1>
-    <p>Alle tabellen in de database</p>
-    <ul>
+    <h1>Database Editor</h1>
+    <u1>
         {% for table in table_list %}
         <li><a href="/table_details/{{ table }}">{{ table }}</a></li>
         {% endfor %}
-    </ul>
+    </u1>   
 </main>
 </body>
 </html>
