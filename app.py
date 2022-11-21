@@ -1,7 +1,7 @@
 import os.path
 import sys
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for, request
 
 from lib.tablemodel import DatabaseModel
 from lib.demodatabase import create_demo_database
@@ -28,7 +28,22 @@ dbm = DatabaseModel(DATABASE_FILE)
 # It is a way to "decorate" a function with additional functionality. You
 # can safely ignore this for now - or look into it as it is a really powerful
 # concept in Python.
-@app.route("/")
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+            error = 'Invalid Credentials. Please try again.'
+        else:
+            return redirect(url_for('index'))
+    return render_template('login.html', error=error)
+
+@app.route("/menu")
+def menu():
+    error = None
+    return render_template ("menu.html", error=error)
+
+@app.route("/list")
 def index():
     tables = dbm.get_table_list()
     return render_template(
