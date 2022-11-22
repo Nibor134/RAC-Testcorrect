@@ -58,17 +58,17 @@ def login():
     error = None
     if request.method == 'POST':
         session.pop('user_id', None)
-
         username = request.form['username']
         password = request.form['password']
-        error = 'Invalid Credentials. Please try again.'
-
         user = [x for x in users if x.username == username][0]
+
         if user and user.password == password:
             session['user_id'] = user.id
             return redirect(url_for('menu'))
-        return redirect(url_for('login'))
-
+        else:
+            error = 'Invalid Credentials. Please try again.'
+            return redirect(url_for('login'))
+        
     return render_template('login2.html', error=error)
 
 @app.route("/menu")
