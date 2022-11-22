@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Index</title>
+        <link rel="stylesheet" href="/static/bulma.css">    
+   </head>
+    <body>
+        <!-- REMOVE geboortejaar FORM -->
+        <div id="remove_geboortejaar">
+            <form action="/remove_geboortejaar" method="POST">
+                {% for geboortejaar in table_list%}
+                <input type="checkbox" name="check" id="{{geboortejaar}}" value="{{geboortejaar}}" onchange="check_me('{{ geboortejaar }}')">
+                <label for="{{geboortejaar}}" name="{{geboortejaar}}">{{ geboortejaar }}</label><br>
+                {% endfor %}
+                <input type="submit" value="CHECK geboortejaar" id="remove_btn">
+            </form>
+        </div>
+
+        <!-- ADD geboortejaar FORM -->
+        <div id="add_geboortejaar">
+            <form action="/add_geboortejaar" method="POST">
+                <select name="select_geboortejaar">
+                {% for geboortejaar in table_list %}
+                <option value="{{ geboortejaar }}">{{ geboortejaar }}</option>
+                {% endfor %}                
+                <input type="submit" value="ADD geboortejaar" id="add_btn">     
+            </form>
+        </div>
+    </body>
+</html>

@@ -11,11 +11,28 @@
 <body>
 <main>
     <h1>Database Editor</h1>
-    <u1>
-        {% for table in table_list %}
-        <li><a href="/table_details/{{ table }}">{{ table }}</a></li>
+    <p>Alle rijen in de tabel <b>{{ table_name }}</b>:</p>
+    <table>
+        <thead>
+            <td>ID</td>
+            <td>Voornaam</td>
+            <td>Achternaam</td>
+            <td>geboortejaar</td>
+            <td>werknemer</td>
+            <td>Met pensioen</td>
+        </thead>
+        <tbody>
+        {% for row in rows %}
+        <tr>
+            {% for field in row %}
+            <td>{{ field }}</td>
+            {% endfor %}
+        </tr>
         {% endfor %}
-    </u1>   
+        </tbody>
+
+    </table>
 </main>
 </body>
+
 </html>

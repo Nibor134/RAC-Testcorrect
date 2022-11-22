@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Database displayer</title>
+    <title>Database Dashboard</title>
     <meta name="description" content="Simple database display"/>
     <meta name="author" content="Rotterdam Academy"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -14,13 +14,13 @@
     <div class="logo_mobile"><a href="https://www.test-correct.nl/"><img src="https://www.test-correct.nl/hubfs/raw_assets/public/test-correct/images/testcorrect-logo.svg"></a></div>
       <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Testcorrect Database Editor</a>
+            <a class="navbar-brand" href="#">Dashboard</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{ url_for('editor') }}">Editor</a></p>
-            <li><a href="{{ url_for('index') }}">Tabellen</a></p>
-            <li><a href="#">{{g.user.username}}'s Profile</a></li>
+            <li><a href="{{ url_for('editor') }}">Editor</a></li>
+            <li><a href="{{ url_for('index') }}">Tabellen</a></li>
+            <li><a href="#">{{g.user.username}}'s Dashboard</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
