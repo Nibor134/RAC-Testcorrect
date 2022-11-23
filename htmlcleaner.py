@@ -46,7 +46,7 @@ def htmleditor():
     rows = cur.fetchall()  
     return render_template("HTMLupdate.html",rows = rows)
 
-@app.route("/editor/htmlcleaner/update<int:id>", methods = ['GET','POST'])
+@app.route("/editor/htmlcleaner/update/<int:id>", methods = ['GET','POST'])
 def htmlupdate(id):
     con = sqlite3.connect(db_local)
     cur = con.cursor()
