@@ -29,15 +29,15 @@ def login():
         username = request.form['username']
         password = request.form['password']
         # Check if account exists using MySQL
-        cursor = sqlite3.connect(DATABASE)
-        Users = cursor.execute('SELECT * FROM Users WHERE (username = '' AND password = '')', (username, password))
+        conn = sqlite3.connect(DATABASE)
+        cursor = conn.cursor()
+        Users = cursor.execute('SELECT * FROM Users WHERE (username = ? AND password = ?)', (username, password))
         # Fetch one record and return result
-        Users.fetchone()
+        Users = cursor.fetchall()
         # If account exists in accounts table in our database
         if Users:
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
-            session['username'] = Users['username']
             # Redirect to home page
             return 'Logged in successfully!'
         else:
