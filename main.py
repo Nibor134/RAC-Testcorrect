@@ -105,6 +105,35 @@ def editor():
     rows = cur.fetchall()  
     return render_template("editor.html",rows = rows)
 
+@app.route("/editor/htmlcleaner/")
+def htmleditor():
+    con = sqlite3.connect(DATABASE)  
+    con.row_factory = sqlite3.Row  
+    cur = con.cursor()
+    cur.execute("SELECT * FROM vragen WHERE vraag LIKE '%<br>%' OR vraag LIKE '%&nbsp;%'")  
+    rows = cur.fetchall()  
+    return render_template("HTMLupdate.html",rows = rows)
+
+@app.route("/editor/htmlcleaner/update/<int:id>", methods = ['GET','POST'])
+def update(id):
+    con = sqlite3.connect(DATABASE)
+    cur = con.cursor()
+    if request.method == 'POST':
+
+        vragen_id =             id
+        #vragen_leerdoel =   request.form['leerdoel']
+        vragen_vraag =          request.form['vraag']
+        #vragen_auteur =     request.form['auteur']
+        cur.execute("UPDATE vragen SET vraag = ? WHERE id = ?",(vragen_vraag,vragen_id))
+        con.commit()
+        flash("Vraag succesvol aangepast")  
+        return redirect(url_for('htmleditor'))
+    cur.execute('SELECT vraag FROM vragen WHERE ID = ?', (id,))
+    vragen = cur.fetchone()
+    con.commit()
+    con.close
+
+    return render_template('HTMLeditor.html', vragen=vragen)
 
 @app.route("/editor/auteurs", methods=('GET', 'POST'))
 def editor2():

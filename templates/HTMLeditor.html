@@ -10,27 +10,29 @@
 </head>
 <body>
 <main>
-    <h1>Database Editor</h1>
-    <p>Alle rijen in de tabel <b>{{ table_name }}</b>:</p>
-    <table>
-        <thead>
-            <td>ID</td>
-            <td>Leerdoel</td>
-            <td>Vraag</td>
-            <td>Auteur</td>
-        </thead>
-        <tbody>
-        {% for row in rows %}
+    <div> 
+        <h1>TEST TEST TEST</h1>
+        <div> 
+            <div> 
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Update vragen</h1>
+        <br/>
+        <form action='' method = "POST">
+        <table class="table">
         <tr>
-            {% for field in row %}
-            <td>{{ field }}</td>
-            {% endfor %}
+        <td>Vraag</td>
+        <form action="update/{{vragen}}" METHOD="POST">
+          <input type="text" placeholder="Vraag" name="vraag" size="150" value = "{{vragen}}">
         </tr>
-        {% endfor %}
-        </tbody>
-
+    </div>
+    <div> 
+        <tr> 
+            <button class="btn btn-primary" type="submit">Update</button>
+         </tr> 
+        </form>
     </table>
-</main>
-</body>
-
-</html>
+</div>
+</main>  

@@ -37,7 +37,7 @@ class Data():
         self.vraag = vraag
         self.auteur = auteur
 
-@app.route("/editor/htmlcleaner")
+@app.route("/editor/htmlcleaner/")
 def htmleditor():
     con = sqlite3.connect(db_local)  
     con.row_factory = sqlite3.Row  
@@ -47,23 +47,22 @@ def htmleditor():
     return render_template("HTMLupdate.html",rows = rows)
 
 @app.route("/editor/htmlcleaner/update/<int:id>", methods = ['GET','POST'])
-def htmlupdate(id):
+def update(id):
     con = sqlite3.connect(db_local)
     cur = con.cursor()
     if request.method == 'POST':
 
-        vragen_id =         request.form['id']
+        vragen_id =             id
         #vragen_leerdoel =   request.form['leerdoel']
-        vragen_vraag =      request.form['vraag']
+        vragen_vraag =          request.form['vraag']
         #vragen_auteur =     request.form['auteur']
-
-        cur.execute("UPDATE vragen SET vraag = ? WHERE id = ?",(vragen_vraag, vragen_id))
+        cur.execute("UPDATE vragen SET vraag = ? WHERE id = ?",(vragen_vraag,vragen_id))
         con.commit()
         flash("Vraag succesvol aangepast")  
-        return redirect('/htmleditor')
-    cur.execute('SELECT * FROM vragen WHERE ID = ?', (id,))
-    vragen = cur.fetchone
-
+        return redirect('/editor/htmlcleaner')
+    cur.execute('SELECT vraag FROM vragen WHERE ID = ?', (id,))
+    vragen = cur.fetchone()
+    con.commit()
     con.close
 
     return render_template('HTMLeditor.html', vragen=vragen)
@@ -102,7 +101,7 @@ def insert():
  
 #this is our update route where we are going to update our employee
 @app.route('/update/vraag/', methods = ['GET', 'POST'])
-def update():
+def aupdate():
  
     if request.method == 'POST':
         db.execute(("SELECT id FROM vragen"))
@@ -132,10 +131,6 @@ def delete(id):
  
  
  
- 
- 
-if __name__ == "__main__":
-    app.run(debug=True)
 
 if __name__ == "__main__":
     app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)

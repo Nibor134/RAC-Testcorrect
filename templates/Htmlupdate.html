@@ -16,8 +16,7 @@
  
             <div class="jumbotron p-3">
  
-                <h2>Controleer vragen op <b>HTML Fouten </b> </h2>
- 
+                <h2>Controleer vragen op <b>HTML Fouten</b></h2>
  
                 {% with messages = get_flashed_messages() %}
  
@@ -32,7 +31,6 @@
                         <span aria-hidden="true">x</span>
  
                     </button>
- 
  
                 {{message}}
  
@@ -57,26 +55,19 @@
                         <th>Action</th>
  
                     </tr>
- 
- 
                    {% for row in rows %}
                     <tr>
                         <td>{{row.id}}</td>
                         <td>{{row.Leerdoel}}</td>
                         <td>{{row.vraag}}</td>
                         <td>{{row.auteur}}</td>
-                        
- 
                         <td>
                             <a href="/editor/htmlcleaner/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
- 
- 
                         </td>
- 
                     </tr>
             {% endfor %}
 
-</div>
+        </div>
 </main>
 </body>
 
