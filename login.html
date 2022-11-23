@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <title>Test-Correct | Home</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-xl fixed-top" aria-label="Main navigation">
+        <div class="container">
+          <a class="navbar-brand" href="#"><img src="images/logo.svg"></a>
+          <button class="navbar-toggler p-0 border-0" type="button" data-bs-toggle="offcanvas" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+  
+          <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Oplossingen
+                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6"><path d="M2.375 1.125L5.5 4.25l3.125-3.125" stroke="#041F74" stroke-width="3" fill="none" fill-rule="evenodd" stroke-linecap="round"></path></svg>
+                    </a>
+                    <ul class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Voor het VO</a>
+                    <a class="dropdown-item" href="#">Voor het MBO & HBO</a>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Aanbod</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Student</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Support</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Nieuws</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Over ons</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="#"><button class="btn probeer_button">Probeer nu</button></a>
+                </li>
+                <li class="nav-item">
+                    <a href="logins.html"><button class="btn btn-info login_button">Log in</button></a>
+                </li> 
+            </ul>
+          </div>
+        </div>
+    </nav>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script>
+        (function mainScript() {
+        "use strict";
+        const offcanvasToggle = document.querySelector(
+            '[data-bs-toggle="offcanvas"]',
+        );
+        const offcanvasCollapse = document.querySelector(".offcanvas-collapse");
+        offcanvasToggle.addEventListener("click", function () {
+            offcanvasCollapse.classList.toggle("open");
+        });
+        })();
+    </script>
+</body>
+</html>
