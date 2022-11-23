@@ -30,7 +30,7 @@ def login():
         password = request.form['password']
         # Check if account exists using MySQL
         cursor = sqlite3.connect(DATABASE)
-        Users = cursor.execute('SELECT * FROM Users WHERE username = ? AND password = ?', (username, password))
+        Users = cursor.execute('SELECT * FROM Users WHERE (username = '' AND password = '')', (username, password))
         # Fetch one record and return result
         Users.fetchone()
         # If account exists in accounts table in our database
