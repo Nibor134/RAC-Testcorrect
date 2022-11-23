@@ -61,6 +61,7 @@ def login():
     # Check if "username" and "password" POST requests exist (user submitted form)
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         # Create variables for easy access
+        session.pop('user_id', None)
         username = request.form['username']
         password = request.form['password']
         # Check if account exists using MySQL
@@ -74,20 +75,15 @@ def login():
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
             # Redirect to home page
-            return redirect(url_for('menu'))
+            return redirect(url_for('/menu'))
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
     # Show the login form with message (if any)
     return render_template('login2.html', msg=msg)
 
-if __name__ == "__main__":
-    app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)
-
 @app.route("/menu")
 def menu():
-    if not g.user:
-        return redirect(url_for('login'))
 
     return render_template ("Menu2.html")
 
