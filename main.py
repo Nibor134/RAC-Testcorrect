@@ -8,9 +8,9 @@ from lib.tablemodel import DatabaseModel
 from lib.demodatabase import create_demo_database
 
 #Flask Settings
-LISTEN_ALL = "0.0.0.0"
+LISTEN_ALL = "localhost"
 FLASK_IP = LISTEN_ALL
-FLASK_PORT = 81
+FLASK_PORT = 80
 FLASK_DEBUG = True
 
 app = Flask(__name__)
@@ -103,7 +103,17 @@ def editor2():
     cur = con.cursor()  
     cur.execute("select * from auteurs")  
     rows = cur.fetchall()  
-    return render_template("editor.html",rows = rows)   
+    return render_template("Auteureditor.html",rows = rows)
+
+#tabellen met chartjs?
+@app.route("/editor/htmlcleaner")
+def htmlviewer():
+    con = sqlite3.connect(DATABASE)  
+    con.row_factory = sqlite3.Row  
+    cur = con.cursor()
+    cur.execute("SELECT * FROM vragen WHERE vraag LIKE '%<br>%' OR vraag LIKE '%&nbsp;%'")  
+    rows = cur.fetchall()  
+    return render_template("table_details.html",rows = rows)   
 
 
 
