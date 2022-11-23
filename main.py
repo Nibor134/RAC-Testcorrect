@@ -56,21 +56,33 @@ def before_request():
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
-    error = None
-    if request.method == 'POST':
-        session.pop('user_id', None)
+    # Output message if something goes wrong...
+    msg = ''
+    # Check if "username" and "password" POST requests exist (user submitted form)
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        # Create variables for easy access
         username = request.form['username']
         password = request.form['password']
-        user = [x for x in users if x.username == username][0]
-
-        if user and user.password == password:
-            session['user_id'] = user.id
-            return redirect(url_for('menu'))
+        # Check if account exists using MySQL
+        conn = sqlite3.connect(DATABASE)
+        cursor = conn.cursor()
+        Users = cursor.execute('SELECT * FROM Users WHERE (username = ? AND password = ?)', (username, password))
+        # Fetch one record and return result
+        Users = cursor.fetchall()
+        # If account exists in accounts table in our database
+        if Users:
+            # Create session data, we can access this data in other routes
+            session['loggedin'] = True
+            # Redirect to home page
+            return 'Logged in successfully!'
         else:
-            error = 'Invalid Credentials. Please try again.'
-            return redirect(url_for('login'))
-        
-    return render_template('login2.html', error=error)
+            # Account doesnt exist or username/password incorrect
+            msg = 'Incorrect username/password!'
+    # Show the login form with message (if any)
+    return render_template('login2.html', msg=msg)
+
+if __name__ == "__main__":
+    app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)
 
 @app.route("/menu")
 def menu():
