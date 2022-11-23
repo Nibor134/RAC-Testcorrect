@@ -74,7 +74,7 @@ def login():
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
             # Redirect to home page
-            return 'Logged in successfully!'
+            return redirect(url_for('menu'))
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
