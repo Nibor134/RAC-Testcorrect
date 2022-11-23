@@ -8,9 +8,9 @@ from lib.tablemodel import DatabaseModel
 from lib.demodatabase import create_demo_database
 
 #Flask Settings
-LISTEN_ALL = "localhost"
+LISTEN_ALL = "0.0.0.0"
 FLASK_IP = LISTEN_ALL
-FLASK_PORT = 80
+FLASK_PORT = 81
 FLASK_DEBUG = True
 
 app = Flask(__name__)
@@ -85,6 +85,16 @@ def index():
     return render_template(
         "tables.html", table_list=tables, database_file=DATABASE
     )
+
+@app.route("/leerdoelen", methods=('GET', 'POST'))
+def leerdoelen():
+    dbm = sqlite3.connect(DATABASE)
+    dbm.row_factory = sqlite3.Row
+    d = dbm.cursor()
+    d.execute("SELECT * FROM vragen WHERE leerdoel NOT IN (SELECT id FROM leerdoelen)")
+    rows = d.fetchall()
+    
+    return render_template("leerdoelen.html", rows = rows)
 
 @app.route("/editor")
 def editor():
