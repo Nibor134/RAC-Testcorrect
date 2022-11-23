@@ -15,8 +15,8 @@
           request.form.password }}">
         <input class="btn btn-default" type="submit" value="Login">
       </form>
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
+      {% if msg %}
+        <p class="msg"><strong>Error:</strong> {{ msg }}
       {% endif %}
     </div>
     <p class="mt-5 mb-3 text-muted">&copy; 2022</p>

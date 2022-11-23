@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="https://www.test-correct.nl/hs-fs/hub/26318898/hub_generated/template_assets/54690480587/1666520754162/test-correct/css/objects/_layout.min.css" media="screen">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
-
 <body>
   <section class="hero is-info is-fullheight">
     <div class="hero-body">
@@ -37,6 +36,10 @@
                   </span>
                 </p>
               </div>
+              <div>           
+              {% if msg %}
+              <p class="msg"><strong>Error:</strong> {{ msg }}
+              {% endif %}</div>
               <div class="field">
                 <p class="control">
                   <button type="submit" class="button is-success">
