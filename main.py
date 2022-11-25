@@ -75,7 +75,7 @@ def login():
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
             # Redirect to home page
-            return redirect(url_for('/menu'))
+            return redirect(url_for('menu'))
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
@@ -85,7 +85,7 @@ def login():
 @app.route("/menu")
 def menu():
 
-    return render_template ("Menu2.html")
+    return render_template ("dashboard.html")
 
 @app.route("/tables")
 def index():
@@ -111,7 +111,7 @@ def editor():
     cur = con.cursor()
     cur.execute("select * from auteurs")  
     rows = cur.fetchall()  
-    return render_template("editor.html",rows = rows)
+    return render_template("Auteureditor.html",rows = rows)
 
 @app.route("/editor/htmlcleaner/")
 def htmleditor():

@@ -6,7 +6,7 @@
     <meta name="description" content="Simple database display"/>
     <meta name="author" content="Rotterdam Academy"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="/static/basic.css" type="text/css">
+    <link rel="stylesheet" href="/static/bootstrap.css" type="text/css">
 </head>
 <body>
 <main>
@@ -49,24 +49,22 @@
                     <tr>
  
                         <th>ID</th>
-                        <th>leerdoel</th>
                         <th>vraag</th>
-                        <th>auteur</th>
                         <th>Action</th>
  
                     </tr>
                    {% for row in rows %}
                     <tr>
                         <td>{{row.id}}</td>
-                        <td>{{row.Leerdoel}}</td>
-                        <td>{{row.vraag}}</td>
-                        <td>{{row.auteur}}</td>
+                        <td>{{row.vraag}}</td>                             
                         <td>
                             <a href="/editor/htmlcleaner/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
+                        
                         </td>
+                        
                     </tr>
             {% endfor %}
-
+                    
         </div>
 </main>
 </body>
