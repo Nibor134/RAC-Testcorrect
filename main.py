@@ -82,9 +82,24 @@ def login():
     # Show the login form with message (if any)
     return render_template('login.html', msg=msg)
 
-@app.route("/menu")
+
+
+@app.route("/menu", methods=('GET', 'POST'))
 def menu():
-    return render_template ("dashboard.html")
+    con = sqlite3.connect(DATABASE)
+    cur = con.cursor()
+    cur.execute("SELECT COUNT (*) FROM vragen WHERE leerdoel NOT IN (SELECT id FROM leerdoelen)")
+    count = cur.fetchone()[0]
+    print(count)
+    con.commit()
+    cur.execute("SELECT COUNT (*) FROM vragen WHERE vraag LIKE '%<br>%'")
+    count2 = cur.fetchone()[0]
+    print(count2)
+    con.commit()
+    cur.execute("SELECT COUNT (*) FROM vragen WHERE vraag LIKE '%&nbsp;%'")
+    count3 = cur.fetchone()[0]
+    print(count3)
+    return render_template ("dashboard.html", count=count, count2=count2, count3=count3)
 
 @app.route("/tables")
 def index():
