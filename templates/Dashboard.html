@@ -58,6 +58,10 @@
         }]
       },
       options: {
+        title: {
+              display: true,
+              text: "Foutieve leerdoelen en Auteurs in vragen"
+            },
         plugins: {   
                 labels: {
                 render: (args) => {
@@ -90,10 +94,14 @@
             }]
           },
           options: {
-            plugins: {   
+            title: {
+              display: true,
+              text: "HTML Fouten"
+            },
+            plugins: {  
                 labels: {
                 render: (args) => {
-                  return args.value
+                  return args.label + args.value
                 }
           }
         }
