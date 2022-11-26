@@ -142,7 +142,7 @@ section>section {
   
   /* Navbar links on mouse-over */
   .navbar a:hover {
-    background-color: #000;
+    background-color: rgb(9, 186, 0);
   }
   
   /* Current/active navbar link */

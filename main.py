@@ -119,7 +119,7 @@ def leerdoelen():
     return render_template("leerdoelen.html", rows = rows)
 
 @app.route("/editor")
-def editor():
+def editor2():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
     cur = con.cursor()
@@ -161,11 +161,11 @@ def update(id):
     return render_template('HTMLupdate.html', vragen=vragen)
 
 @app.route("/editor/auteurs", methods=('GET', 'POST'))
-def editor2():
+def editor():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
     cur = con.cursor()  
-    cur.execute("select * from auteurs")  
+    cur.execute("SELECT * FROM vragen WHERE auteur NOT IN (SELECT id FROM auteurs)")  
     rows = cur.fetchall()  
     return render_template("Auteureditor.html",rows = rows)
 
@@ -174,7 +174,7 @@ def NullornotNull():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
     cur = con.cursor()  
-    cur.execute("SELECT * FROM auteurs WHERE medewerker IS NULL;")  
+    cur.execute("SELECT * FROM auteurs WHERE ? IS NULL;")  
     rows = cur.fetchall()  
     return render_template("table_details.html",rows = rows)
 

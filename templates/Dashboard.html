@@ -21,8 +21,8 @@
             <div class="header-right">
                 <ul class="navbar">
                     <a href="{{ url_for('editor') }}">Auteur Editor</a>
-                    <a  href="{{ url_for('htmleditor') }}">HTML Cleaner</a>
-                    <a  href="{{ url_for('leerdoelen') }}">Leerdoelen check</a>
+                    <a href="{{ url_for('htmleditor') }}">HTML Cleaner</a>
+                    <a href="{{ url_for('leerdoelen') }}">Leerdoelen check</a>
                     <a href="{{ url_for('NullornotNull') }}">Null or not Null</a>
                     <a href="{{ url_for('index') }}">Tabellen</a> 
                 </ul>
@@ -31,12 +31,12 @@
 </header>
 <section>
     <nav>
-    <div class="navbar">
-        <li><a href="table_details/auteurs">Auteurs</a></li>
-        <li><a href="table_details/Leerdoelen">Leerdoelen</a></li>
-        <li><a href="table_details/Vragen">Vragen</a></li>
+    <ul class="navbar">
+      <nav> <div><li><a href="/table_details/auteurs">Auteurs</a></li></div></nav> </ul>
+      <ul class="navbar"> <nav>  <div><li><a href="/table_details/leerdoelen">Leerdoelen</a></li></div></nav> </ul>
+      <ul class="navbar"> <nav> <div><li><a href="/table_details/vragen">Vragen</a></li></div></nav> </ul>
     </nav>
-    </div>
+  
     <article>
         <h1 class="page-header">Welcome {{username}},</h1>
         <canvas id="leerdoelenChart" style="width:100%;max-width:700px" ></canvas>
