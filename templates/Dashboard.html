@@ -8,7 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="/static/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <div class="header">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+  <div class="header">
       <a href="#default" class="logo">Testcorrect </a>
       <div class="header-right">
         <a class="active" href="#home">Home</a>
@@ -39,48 +41,66 @@
     </li>
   </ul>
    
-  <div class="container">
-    <div class="row">
+  <div class="nav">
+    <div class="navbar">
       <div class="col-sm-3 col-md-2 sidebar">
-        <ul class="nav-link nav-sidebar">
+        <ul class="container">
           <li><a href="/table_details/auteurs">Auteurs</a></li>
           <li><a href="/table_details/Leerdoelen">Leerdoelen</a></li>
           <li><a href="/table_details/Vragen">Vragen</a></li>
         </ul>
       </div>
-
-      <ul2 class="container-fluid">
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h1 class="page-header">Welcome {{username}},</h1>
-
-        <div class="row placeholders">
-          <div class="col-xs-6 col-sm-3 placeholder">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4>Label</h4>
-            <span class="text-muted">Something else</span>
-          </div>
-          <div class="col-xs-6 col-sm-3 placeholder">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4>Label</h4>
-            <span class="text-muted">Something else</span>
-          </div>
-          <div class="col-xs-6 col-sm-3 placeholder">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4>Label</h4>
-            <span class="text-muted">Something else</span>
-          </div>
-          <div class="col-xs-6 col-sm-3 placeholder">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4>Label</h4>
-            <span class="text-muted">Something else</span>
-          </div>
-        </div>
-      </ul2>
-        <h2 class="sub-header">Section title</h2>
-        <div class="table-responsive">
-          <table class="table table-striped">
-        </div>
-      </div>
-    </div>
   </div>
+
+  <canvas id="leerdoelenChart" style="width:100%;max-width:700px" ></canvas>
+  <script METHOD = "GET" > 
+    var xValues = ["Leerdoelen"];
+    var yValues = ["{{count}}"];
+    var barColors = ["red", "green"];
+
+    
+    new Chart("leerdoelenChart", {
+      type: "bar",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        legend: {display: false},
+        title: {
+          display: true,
+          text: "Leerdoelen"
+        }
+      }
+    });
+    </script>
+      <canvas id="HTMLChart" style="width:100%;max-width:700px" ></canvas>
+      <script METHOD = "GET" > 
+        var xValues = ["<br>", "nbsp;"];
+        var yValues = ["{{count2}}","{{count3}}"];
+        var barColors = ["green","blue"];
+    
+        
+        new Chart("HTMLChart", {
+          type: "doughnut",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            legend: {display: false},
+            title: {
+              display: true,
+              text: "HTML Fouten"
+            }
+          }
+        });
+        </script>
+</body>
 </main>
