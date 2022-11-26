@@ -99,7 +99,12 @@ def menu():
     cur.execute("SELECT COUNT (*) FROM vragen WHERE vraag LIKE '%&nbsp;%'")
     count3 = cur.fetchone()[0]
     print(count3)
-    return render_template ("dashboard.html", count=count, count2=count2, count3=count3)
+    con.commit()
+    cur.execute("SELECT COUNT (*) FROM vragen WHERE auteur NOT IN (SELECT id FROM auteurs)")
+    count4 = cur.fetchone()[0]
+    print(count4)
+    con.commit()
+    return render_template ("dashboard.html", count=count, count2=count2, count3=count3,count4=count4)
 
 @app.route("/tables")
 def index():

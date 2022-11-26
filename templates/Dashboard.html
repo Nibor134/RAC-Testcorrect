@@ -41,13 +41,13 @@
         <h1 class="page-header">Welcome {{username}},</h1>
         <canvas id="leerdoelenChart" style="width:100%;max-width:700px" ></canvas>
         <script METHOD = "GET" > 
-    var xValues = ["Leerdoelen"];
-    var yValues = ["{{count}}"];
+    var xValues = ["Foutieve Leerdoelen", "Foutieve Auteur"];
+    var yValues = ["{{count}}","{{count4}}"];
     var barColors = ["red", "green"];
 
     
     new Chart("leerdoelenChart", {
-      type: "bar",
+      type: "doughnut",
       data: {
         labels: xValues,
         datasets: [{
