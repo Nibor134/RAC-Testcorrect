@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Database displayer</title>
+    <title>Author Editor</title>
     <meta name="description" content="Simple database display"/>
     <meta name="author" content="Rotterdam Academy"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -10,29 +10,59 @@
 </head>
 <body>
 <main>
-    <h1>Database Editor</h1>
-    <p>Alle rijen in de tabel <b>{{ table_name }}</b>:</p>
-    <table>
-        <thead>
-            <td>ID</td>
-            <td>Voornaam</td>
-            <td>Achternaam</td>
-            <td>geboortejaar</td>
-            <td>werknemer</td>
-            <td>Met pensioen</td>
-        </thead>
-        <tbody>
-        {% for row in rows %}
-        <tr>
-            {% for field in row %}
-            <td>{{ field }}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-        </tbody>
-
-    </table>
-</main>
-</body>
-
-</html>
+    <header>
+    <div class="header-right">
+    <a href="https://www.test-correct.nl/" class="logo"><img src=https://www.test-correct.nl/hubfs/raw_assets/public/test-correct/images/testcorrect-logo.svg> </a>
+    </div>        
+    <div class="header">
+        <a href="{{url_for('menu') }}"><h1><b>Dashboard</a></b></h1></li>
+    </div>
+    </header>
+        <div class="container">
+            <div class="row">
+                <div class="col md-12">
+                    <div class="jumbotron p-3">
+                        <h2>Controleer vragen op <b>Auteur</b></h2>
+         
+                        {% with messages = get_flashed_messages() %}
+         
+                        {% if messages %}
+         
+                        {% for message in messages %}
+         
+                        <div class="alert alert-success alert-dismissable" role="alert">
+                            <button type="text" class="close" data-dismiss="alert" aria-label="close">
+                                <span aria-hidden="true">x</span>
+                            </button>
+         
+                        {{message}}
+         
+         
+                        </div>
+                        {% endfor %}
+         
+                        {% endif %}
+                        {% endwith %}
+                        <div class="jumbotron p-3">
+                        <table class="table table-hover table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>vraag</th>
+                                <th>Auteur</th>
+                            </tr>
+                           {% for row in rows %}
+                            <tr>
+                                <td>{{row.id}}</td>
+                                <td>{{row.vraag}}</td>
+                                <td>{{row.auteur}}</td>
+                                <td>
+                                    <a href="/editor/Auteurupdate/" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
+                                </td>
+                            </tr>
+                    {% endfor %}
+                </div>
+                </div>
+    </main>
+ </body>
+        
+ </html>

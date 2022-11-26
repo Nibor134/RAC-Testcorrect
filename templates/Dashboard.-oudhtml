@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Database Dashboard</title>
+    <meta name="description" content="Simple database display"/>
+    <meta name="author" content="Rotterdam Academy"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="/static/basic.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+  <div class="header">
+    <img src=https://www.test-correct.nl/hubfs/raw_assets/public/test-correct/images/testcorrect-logo.svg>
+      <div class="header-right">
+        <a class="active" href="#home">Home</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+        <a href="#logout">Logout</a>
+      </div>
+    </div>
+<main>
+<ul class="navbar">
+      <a src=href="{{ url_for('editor') }}">Auteur Editor</a>
+    </li>
+      <a  href="{{ url_for('htmleditor') }}">HTML Cleaner</a>
+    </li>
+        <a  href="{{ url_for('leerdoelen') }}">Leerdoelen check</a>
+    </li>
+      <a href="{{ url_for('NullornotNull') }}">Null or not Null</a>
+    </li>
+        <a href="{{ url_for('index') }}">Tabellen</a></li>
+    </li>
+  </ul>
+    <ul class="navbar">
+          <li><a href="/table_details/auteurs">Auteurs</a></li>
+          <li><a href="/table_details/Leerdoelen">Leerdoelen</a></li>
+          <li><a href="/table_details/Vragen">Vragen</a></li>
+        </ul>
+      </div>
+      </div>
+  </div>
+
+<div>
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">Welcome {{username}},</h1>
+  <canvas id="leerdoelenChart" style="width:100%;max-width:700px" ></canvas>
+  <script METHOD = "GET" > 
+    var xValues = ["Leerdoelen"];
+    var yValues = ["{{count}}"];
+    var barColors = ["red", "green"];
+
+    
+    new Chart("leerdoelenChart", {
+      type: "bar",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        legend: {display: false},
+        title: {
+          display: true,
+          text: "Leerdoelen"
+        }
+      }
+    });
+    </script>
+      <canvas id="HTMLChart" style="width:100%;max-width:700px" ></canvas>
+      <script METHOD = "GET" > 
+        var xValues = ["<br>", "nbsp;"];
+        var yValues = ["{{count2}}","{{count3}}"];
+        var barColors = ["green","blue"];
+    
+        
+        new Chart("HTMLChart", {
+          type: "doughnut",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            legend: {display: false},
+            title: {
+              display: true,
+              text: "HTML Fouten"
+            }
+          }
+        });
+        </script>
+        </div>
+</body>
+</main>

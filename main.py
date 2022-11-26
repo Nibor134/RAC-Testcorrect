@@ -75,17 +75,36 @@ def login():
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
             # Redirect to home page
-            return redirect(url_for('/menu'))
+            return redirect(url_for('menu'))
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
     # Show the login form with message (if any)
-    return render_template('login2.html', msg=msg)
+    return render_template('login.html', msg=msg,)
 
-@app.route("/menu")
+
+
+@app.route("/menu", methods=('GET', 'POST'))
 def menu():
-
-    return render_template ("Menu2.html")
+    con = sqlite3.connect(DATABASE)
+    cur = con.cursor()
+    cur.execute("SELECT COUNT (*) FROM vragen WHERE leerdoel NOT IN (SELECT id FROM leerdoelen)")
+    count = cur.fetchone()[0]
+    print(count)
+    con.commit()
+    cur.execute("SELECT COUNT (*) FROM vragen WHERE vraag LIKE '%<br>%'")
+    count2 = cur.fetchone()[0]
+    print(count2)
+    con.commit()
+    cur.execute("SELECT COUNT (*) FROM vragen WHERE vraag LIKE '%&nbsp;%'")
+    count3 = cur.fetchone()[0]
+    print(count3)
+    con.commit()
+    cur.execute("SELECT COUNT (*) FROM vragen WHERE auteur NOT IN (SELECT id FROM auteurs)")
+    count4 = cur.fetchone()[0]
+    print(count4)
+    con.commit()
+    return render_template ("dashboard.html", count=count, count2=count2, count3=count3,count4=count4)
 
 @app.route("/tables")
 def index():
@@ -94,7 +113,7 @@ def index():
         "tables.html", table_list=tables, database_file=DATABASE
     )
 
-@app.route("/leerdoelen", methods=('GET', 'POST'))
+@app.route("/editor/leerdoelen", methods=('GET', 'POST'))
 def leerdoelen():
     dbm = sqlite3.connect(DATABASE)
     dbm.row_factory = sqlite3.Row
@@ -105,22 +124,24 @@ def leerdoelen():
     return render_template("leerdoelen.html", rows = rows)
 
 @app.route("/editor")
-def editor():
+def editor2():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
     cur = con.cursor()
     cur.execute("select * from auteurs")  
     rows = cur.fetchall()  
-    return render_template("editor.html",rows = rows)
+    return render_template("Auteureditor.html",rows = rows)
 
-@app.route("/editor/htmlcleaner/")
+@app.route("/editor/cleaner/")
 def htmleditor():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
     cur = con.cursor()
     cur.execute("SELECT * FROM vragen WHERE vraag LIKE '%<br>%' OR vraag LIKE '%&nbsp;%'")  
     rows = cur.fetchall()  
-    return render_template("HTMLupdate.html",rows = rows)
+    return render_template("HTMLeditor.html",rows = rows)
+
+    #tabellen met chartjs?
 
 @app.route("/editor/htmlcleaner/update/<int:id>", methods = ['GET','POST'])
 def update(id):
@@ -136,31 +157,32 @@ def update(id):
         con.commit()
         flash("Vraag succesvol aangepast")  
         return redirect(url_for('htmleditor'))
+
     cur.execute('SELECT vraag FROM vragen WHERE ID = ?', (id,))
-    vragen = cur.fetchone()
+    vragen = cur.fetchone()[0]
     con.commit()
     con.close
 
-    return render_template('HTMLeditor.html', vragen=vragen)
+    return render_template('HTMLupdate.html', vragen=vragen)
 
 @app.route("/editor/auteurs", methods=('GET', 'POST'))
-def editor2():
+def editor():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
     cur = con.cursor()  
-    cur.execute("select * from auteurs")  
+    cur.execute("SELECT * FROM vragen WHERE auteur NOT IN (SELECT id FROM auteurs)")  
     rows = cur.fetchall()  
     return render_template("Auteureditor.html",rows = rows)
 
-#tabellen met chartjs?
-@app.route("/editor/htmlcleaner")
-def htmlviewer():
+@app.route("/editor/NullorNotnull", methods=('GET', 'POST'))
+def NullornotNull():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
-    cur = con.cursor()
-    cur.execute("SELECT * FROM vragen WHERE vraag LIKE '%<br>%' OR vraag LIKE '%&nbsp;%'")  
+    cur = con.cursor()  
+    cur.execute("SELECT * FROM auteurs WHERE ? IS NULL;")  
     rows = cur.fetchall()  
-    return render_template("table_details.html",rows = rows)   
+    return render_template("table_details.html",rows = rows)
+
 
 
 
