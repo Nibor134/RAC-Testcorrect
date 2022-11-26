@@ -80,11 +80,10 @@ def login():
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
     # Show the login form with message (if any)
-    return render_template('login2.html', msg=msg)
+    return render_template('login.html', msg=msg)
 
 @app.route("/menu")
 def menu():
-
     return render_template ("dashboard.html")
 
 @app.route("/tables")
@@ -94,7 +93,7 @@ def index():
         "tables.html", table_list=tables, database_file=DATABASE
     )
 
-@app.route("/leerdoelen", methods=('GET', 'POST'))
+@app.route("/editor/leerdoelen", methods=('GET', 'POST'))
 def leerdoelen():
     dbm = sqlite3.connect(DATABASE)
     dbm.row_factory = sqlite3.Row
@@ -113,14 +112,16 @@ def editor():
     rows = cur.fetchall()  
     return render_template("Auteureditor.html",rows = rows)
 
-@app.route("/editor/htmlcleaner/")
+@app.route("/editor/cleaner/")
 def htmleditor():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
     cur = con.cursor()
     cur.execute("SELECT * FROM vragen WHERE vraag LIKE '%<br>%' OR vraag LIKE '%&nbsp;%'")  
     rows = cur.fetchall()  
-    return render_template("HTMLupdate.html",rows = rows)
+    return render_template("HTMLeditor.html",rows = rows)
+
+    #tabellen met chartjs?
 
 @app.route("/editor/htmlcleaner/update/<int:id>", methods = ['GET','POST'])
 def update(id):
@@ -141,7 +142,7 @@ def update(id):
     con.commit()
     con.close
 
-    return render_template('HTMLeditor.html', vragen=vragen)
+    return render_template('HTMLupdate.html', vragen=vragen)
 
 @app.route("/editor/auteurs", methods=('GET', 'POST'))
 def editor2():
@@ -152,15 +153,15 @@ def editor2():
     rows = cur.fetchall()  
     return render_template("Auteureditor.html",rows = rows)
 
-#tabellen met chartjs?
-@app.route("/editor/htmlcleaner")
-def htmlviewer():
+@app.route("/editor/NullorNotnull", methods=('GET', 'POST'))
+def NullornotNull():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
-    cur = con.cursor()
-    cur.execute("SELECT * FROM vragen WHERE vraag LIKE '%<br>%' OR vraag LIKE '%&nbsp;%'")  
+    cur = con.cursor()  
+    cur.execute("SELECT * FROM auteurs WHERE medewerker IS NULL;")  
     rows = cur.fetchall()  
-    return render_template("table_details.html",rows = rows)   
+    return render_template("table_details.html",rows = rows)
+
 
 
 

@@ -7,15 +7,23 @@
     <meta name="author" content="Rotterdam Academy"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="/static/bootstrap.css" type="text/css">
-    <p><img style="display: block; margin-left: auto; margin-right: right;" src="https://login.hr.nl/v1/assets/svg/logo/logo.svg" alt="" /></p>
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <div class="header">
+      <a href="#default" class="logo">Testcorrect </a>
+      <div class="header-right">
+        <a class="active" href="#home">Home</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+        <a href="#logout">Logout</a>
+      </div>
+    </div>
 <main>
-<ul class="nav">
+<ul class="navbar">
     <li class="nav-item">
       <a class="nav-link active" aria-current="page" href="#">Active</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{ url_for('editor') }}">Editor</a>
+      <a class="nav-link" href="{{ url_for('editor') }}">Auteur Editor</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{{ url_for('htmleditor') }}">HTML Cleaner</a>
@@ -24,10 +32,14 @@
         <a class="nav-link" href="{{ url_for('leerdoelen') }}">Leerdoelen check</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('NullornotNull') }}">Null or not Null</a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{ url_for('index') }}">Tabellen</a></li>
     </li>
   </ul>
-  <div class="container-fluid">
+   
+  <div class="container">
     <div class="row">
       <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav-link nav-sidebar">
@@ -36,6 +48,8 @@
           <li><a href="/table_details/Vragen">Vragen</a></li>
         </ul>
       </div>
+
+      <ul2 class="container-fluid">
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Welcome {{username}},</h1>
 
@@ -61,6 +75,7 @@
             <span class="text-muted">Something else</span>
           </div>
         </div>
+      </ul2>
         <h2 class="sub-header">Section title</h2>
         <div class="table-responsive">
           <table class="table table-striped">
