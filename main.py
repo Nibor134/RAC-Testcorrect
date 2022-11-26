@@ -152,8 +152,9 @@ def update(id):
         con.commit()
         flash("Vraag succesvol aangepast")  
         return redirect(url_for('htmleditor'))
+
     cur.execute('SELECT vraag FROM vragen WHERE ID = ?', (id,))
-    vragen = cur.fetchone()
+    vragen = cur.fetchone()[0]
     con.commit()
     con.close
 
