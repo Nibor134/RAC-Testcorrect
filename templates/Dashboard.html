@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="/static/basic.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
-    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+    
 </style>
 </head>
 <body>
@@ -31,38 +32,44 @@
 </header>
 <section>
     <nav>
-    <ul class="navbar">
-      <nav> <div><li><a href="/table_details/auteurs">Auteurs</a></li></div></nav> </ul>
+      <ul class="navbar"> <nav> <div><li><a href="/table_details/auteurs">Auteurs</a></li></div></nav> </ul>
       <ul class="navbar"> <nav>  <div><li><a href="/table_details/leerdoelen">Leerdoelen</a></li></div></nav> </ul>
       <ul class="navbar"> <nav> <div><li><a href="/table_details/vragen">Vragen</a></li></div></nav> </ul>
-    </nav>
-  
+    </nav>   
+    <h1 class="header">Welcome "{{username}}"</h1>
+  </section>
+  <section> 
     <article>
-        <h1 class="page-header">Welcome {{username}},</h1>
+        
         <canvas id="leerdoelenChart" style="width:100%;max-width:700px" ></canvas>
         <script METHOD = "GET" > 
     var xValues = ["Foutieve Leerdoelen", "Foutieve Auteur"];
     var yValues = ["{{count}}","{{count4}}"];
-    var barColors = ["red", "green"];
+    var barColors = ["red", "orange"];
 
     
     new Chart("leerdoelenChart", {
-      type: "doughnut",
+      type: "pie",
       data: {
-        labels: xValues,
+        labels: xValues, 
         datasets: [{
           backgroundColor: barColors,
           data: yValues
         }]
       },
       options: {
-        legend: {display: false},
-        title: {
-          display: true,
-          text: "Leerdoelen"
+        plugins: {   
+                labels: {
+                render: (args) => {
+                  return args.value
+                }
+          }
         }
       }
-    });
+    }
+  
+);
+
     </script>
     </article>
     <article>
@@ -70,11 +77,11 @@
       <script METHOD = "GET" > 
         var xValues = ["<br>", "nbsp;"];
         var yValues = ["{{count2}}","{{count3}}"];
-        var barColors = ["green","blue"];
+        var barColors = ["red","orange"];
     
         
         new Chart("HTMLChart", {
-          type: "doughnut",
+          type: "pie",
           data: {
             labels: xValues,
             datasets: [{
@@ -83,13 +90,18 @@
             }]
           },
           options: {
-            legend: {display: false},
-            title: {
-              display: true,
-              text: "HTML Fouten"
-            }
+            plugins: {   
+                labels: {
+                render: (args) => {
+                  return args.value
+                }
           }
-        });
+        }
+      }
+    }
+  
+);
+
         </script>
     </article>
 </section>
