@@ -7,24 +7,24 @@
     <meta name="author" content="Rotterdam Academy"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="/static/bootstrap.css" type="text/css">
+
 </head>
 <body>
 <main>
     <header>
-        <div class="header-right">
-            <ul class="navbar">
-                <a href="{{ url_for('menu') }}">Dashboard</a>
-
-            </ul>
-        </div>
-    <div class="header-right">
+    <div class="header">
     <a href="https://www.test-correct.nl/" class="logo"><img src=https://www.test-correct.nl/hubfs/raw_assets/public/test-correct/images/testcorrect-logo.svg> </a>
     </div>        
     </header>
+    <section>
         <div class="container">
             <div class="row">
                 <div class="col md-12">
                     <div class="jumbotron p-3">
+                        <ul class="navbar">
+                            <a href="{{ url_for('menu') }}">Dashboard</a>
+            
+                        </ul>
                         <h2>Controleer data op <b>Auteur</b></h2>
          
                         {% with messages = get_flashed_messages() %}
@@ -37,7 +37,7 @@
                             <button type="text" class="close" data-dismiss="alert" aria-label="close">
                                 <span aria-hidden="true">x</span>
                             </button>
-         
+                        </section>
                         {{message}}
          
          
@@ -46,13 +46,24 @@
          
                         {% endif %}
                         {% endwith %}
+                        <section>
                         <div class="jumbotron p-3">
-                        <table class="table table-hover table-dark">
+                        <table class="table table-hover table-striped table-bordered">
                             <tr>
-                                {% for column in columns %}
-                                <th>{{column.name}}</th>
-                                {% endfor %}
+                                <th>ID</th>
+                                <th></th>
+                                <th>voornaam</th>
+                                <th></th>
+                                <th>achternaam</th>
+                                <th></th>
+                                <th>geboortejaar</th>
+                                <th></th>
+                                <th>medewerker</th>
+                                <th></th>
+                                <th>met pensioen</th>
                             </tr>
+
+
                            {% for row in rows %}
                             <tr>
                                 {% for field in row %}
@@ -65,6 +76,7 @@
                     {% endfor %}
                 </div>
                 </div>
+            </section>
     </main>
  </body>
         
