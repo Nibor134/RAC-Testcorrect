@@ -31,3 +31,18 @@
     </table>
 </div>
 </main>  
+
+<script>
+    var regex = /(<br>|&nbsp;)/g;
+    var regex = /(apples|oranges)/g;
+    
+    $('body a, body p').each(function() {
+        var $vragem = $(this);
+        var text = $vragen.text();
+        if (text.match(regex) && $vragen.children().length===0) {
+            $vragen.html(
+                $vragen.html().replace(regex, '<span style="background: #FFFF00;">$1</span>')
+            );
+        }
+    });
+    </script>

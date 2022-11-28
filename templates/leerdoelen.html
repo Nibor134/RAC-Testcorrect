@@ -43,9 +43,8 @@
                 {% endif %}
                 {% endwith %}
  
- 
-                <table class="table table-hover table-dark">
- 
+                <table class="table table-hover table-light table-bordered">
+                    <thead class="thead-dark">
                     <tr>
  
                         <th>ID</th>
@@ -54,6 +53,7 @@
                         <th>Action</th>
  
                     </tr>
+                    </thead>
                    {% for row in rows %}
                     <tr>
                         <td>{{row.id}}</td>
