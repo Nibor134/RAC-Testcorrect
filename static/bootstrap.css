@@ -2494,13 +2494,13 @@ fieldset:disabled a.btn {
 
 .btn-warning {
   color: #212529;
-  background-color: #075aff;
+  background-color: #4781ff;
   border-color: #075aff;
 }
 
 .btn-warning:hover {
   color: #212529;
-  background-color: #075aff;
+  background-color: #4781ff; 
   border-color: #075aff;
 }
 
@@ -4837,7 +4837,7 @@ input[type="button"].btn-block {
 .jumbotron {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
-  background-color: #e9ecef;
+  background-color: #4781ff ;
   border-radius: 0.3rem;
 }
 
