@@ -7,6 +7,7 @@
     <meta name="author" content="Rotterdam Academy"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="/static/bootstrap.css" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <main>
@@ -15,7 +16,10 @@
         <div class="col md-12">
  
             <div class="jumbotron p-3">
- 
+                <ul class="nav">
+                    <a href="{{ url_for('menu') }}">Dashboard</a>
+    
+                </ul>
                 <h2>Controleer vragen op <b>HTML Fouten</b></h2>
  
                 {% with messages = get_flashed_messages() %}
@@ -65,7 +69,21 @@
             {% endfor %}
                     
         </div>
-</main>
-</body>
+    </main> 
+    </body>
+
 
 </html>
+<script>
+var regex = /(<br>|&nbsp;)/g;
+
+$('body a, body p').each(function() {
+    var $this = $(this);
+    var text = $this.text();
+    if (text.match(regex) && $this.children().length===0) {
+        $this.html(
+            $this.html().replace(regex, '<span style="background: #fa7373;">$1</span>')
+        );
+    }
+});
+</script>
