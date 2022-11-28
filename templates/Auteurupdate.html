@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Database displayer</title>
+    <meta name="description" content="Simple database display"/>
+    <meta name="author" content="Rotterdam Academy"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="/static/basic.css" type="text/css">
+</head>
+<body>
+<main>
+    <div class="container"><header>
+        <h1>Update Auteurs</h1>
+        <br/>
+        <td>Auteuren</td>
+    </header>
+        <form action='' method = "POST">
+        <table class="table">
+        <tr>
+       
+        <form action="updateauteurs/{{voornamen}}" METHOD="POST">
+            
+          <section><tr>Voornaam&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tr><input type="text" placeholder="voornaam" name="voornaam" size="50" value = "{{voornamen}}"></section>
+          
+          <section><tr>Achternaam&nbsp;&nbsp;&nbsp;&nbsp;</tr><input type="text" placeholder="achternaam" name="achternaam" size="50" value = "{{achternaam}}"></section>
+          
+          <section><tr>Geboortejaar&nbsp;&nbsp;</tr><input type="text" placeholder="geboortejaar" name="geboortejaar" size="50" value = "{{geboortejaar}}"></section>
+          
+          <section><tr>Medewerker&nbsp;&nbsp;&nbsp;</tr><input type="text" placeholder="medewerker" name="medewerker" size="50" value = "{{medewerker}}"></section>
+          
+          <section><tr>Met pensioen&nbsp;</tr><input type="text" placeholder="Met Pensioen" name="met pensioen" size="50" value = "{{metpensioen}}"></section>
+          <section>
+          <tr>
+            Met pensioen: <input type = "radio" name = "Met pensioen"  value="{{metpensioen}}"
+            {% if '1' in auteur_metpensioen %}
+               checked
+            {% endif %}
+            />
+           Niet met pensioen: <input type = "radio" name = "Met pensioen"  value="{{metpensioen}}"
+            {% if '0' in auteur_metpensioen %}
+                checked
+            {% endif %}
+           />
+          </tr>
+        </section>
+        </tr>
+    </div>
+    <div> 
+        <tr> 
+            <button class="btn btn-primary" type="submit">Update</button>
+         </tr> 
+        </form>
+    </table>
+</div>
+</main>  

@@ -123,14 +123,6 @@ def leerdoelen():
     
     return render_template("leerdoelen.html", rows = rows)
 
-@app.route("/editor")
-def editor2():
-    con = sqlite3.connect(DATABASE)  
-    con.row_factory = sqlite3.Row  
-    cur = con.cursor()
-    cur.execute("select * from auteurs")  
-    rows = cur.fetchall()  
-    return render_template("Auteureditor.html",rows = rows)
 
 @app.route("/editor/cleaner/")
 def htmleditor():
@@ -166,13 +158,54 @@ def update(id):
     return render_template('HTMLupdate.html', vragen=vragen)
 
 @app.route("/editor/auteurs", methods=('GET', 'POST'))
-def editor():
+def auteureditor():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
     cur = con.cursor()  
-    cur.execute("SELECT * FROM vragen WHERE auteur NOT IN (SELECT id FROM auteurs)")  
+    cur.execute("select * from auteurs")
+    #cur.execute("SELECT * FROM vragen WHERE auteur NOT IN (SELECT id FROM auteurs)")  
     rows = cur.fetchall()  
     return render_template("Auteureditor.html",rows = rows)
+
+@app.route("/editor/auteurs/update/<int:id>", methods = ['GET','POST'])
+def updateauteurs(id):
+    con = sqlite3.connect(DATABASE)
+    cur = con.cursor()
+    if request.method == 'POST':
+
+        auteur_id =                              id
+        auteur_voornaam         =               request.form['voornaam']
+        auteur_achternaam       =               request.form['achternaam']
+        auteur_geboortejaar     =               request.form['geboortejaar']
+        auteur_medewerker       =               request.form['medewerker']
+        auteur_metpensioen      =               request.form['met pensioen']
+        #
+        cur.execute("UPDATE auteurs SET voornaam = ? WHERE id = ?",(auteur_voornaam, auteur_id))
+        cur.execute("UPDATE auteurs SET achternaam = ? WHERE id = ?",(auteur_achternaam, auteur_id))
+        cur.execute("UPDATE auteurs SET geboortejaar = ? WHERE id = ?",(auteur_geboortejaar, auteur_id))
+        cur.execute("UPDATE auteurs SET medewerker = ? WHERE id = ?",(auteur_medewerker, auteur_id))
+        cur.execute("UPDATE auteurs SET 'met pensioen' = ? WHERE id = ?",(auteur_metpensioen, auteur_id))
+        con.commit()
+        flash("Vraag succesvol aangepast")  
+        return redirect(url_for('auteureditor'))
+ 
+    cur.execute('SELECT voornaam FROM auteurs WHERE ID = ?', (id,))
+    voornamen = cur.fetchone()[0]
+    cur.execute('SELECT  achternaam FROM auteurs WHERE ID = ?', (id,))
+    achternaam = cur.fetchone()[0]
+    cur.execute('SELECT geboortejaar FROM auteurs WHERE ID = ?', (id,))
+    geboortejaar = cur.fetchone()[0]
+    cur.execute('SELECT medewerker FROM auteurs WHERE ID = ?', (id,))
+    medewerker = cur.fetchone()[0]
+    cur.execute('SELECT "met pensioen" FROM auteurs WHERE ID = ?', (id,))
+    metpensioen = cur.fetchone()[0]
+    con.commit()
+    con.close
+    #
+    return render_template('Auteurupdate.html', voornamen=voornamen,achternaam=achternaam, geboortejaar=geboortejaar, medewerker=medewerker,metpensioen=metpensioen)
+
+
+
 
 @app.route("/editor/NullorNotnull", methods=('GET', 'POST'))
 def NullornotNull():

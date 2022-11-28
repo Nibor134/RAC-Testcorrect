@@ -6,23 +6,26 @@
     <meta name="description" content="Simple database display"/>
     <meta name="author" content="Rotterdam Academy"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="/static/basic.css" type="text/css">
+    <link rel="stylesheet" href="/static/bootstrap.css" type="text/css">
 </head>
 <body>
 <main>
     <header>
+        <div class="header-right">
+            <ul class="navbar">
+                <a href="{{ url_for('menu') }}">Dashboard</a>
+
+            </ul>
+        </div>
     <div class="header-right">
     <a href="https://www.test-correct.nl/" class="logo"><img src=https://www.test-correct.nl/hubfs/raw_assets/public/test-correct/images/testcorrect-logo.svg> </a>
     </div>        
-    <div class="header">
-        <a href="{{url_for('menu') }}"><h1><b>Dashboard</a></b></h1></li>
-    </div>
     </header>
         <div class="container">
             <div class="row">
                 <div class="col md-12">
                     <div class="jumbotron p-3">
-                        <h2>Controleer vragen op <b>Auteur</b></h2>
+                        <h2>Controleer data op <b>Auteur</b></h2>
          
                         {% with messages = get_flashed_messages() %}
          
@@ -46,17 +49,17 @@
                         <div class="jumbotron p-3">
                         <table class="table table-hover table-dark">
                             <tr>
-                                <th>ID</th>
-                                <th>vraag</th>
-                                <th>Auteur</th>
+                                {% for column in columns %}
+                                <th>{{column.name}}</th>
+                                {% endfor %}
                             </tr>
                            {% for row in rows %}
                             <tr>
-                                <td>{{row.id}}</td>
-                                <td>{{row.vraag}}</td>
-                                <td>{{row.auteur}}</td>
+                                {% for field in row %}
+                                <td>{{ field }}</td>
                                 <td>
-                                    <a href="/editor/Auteurupdate/" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
+                                    {% endfor %}    
+                                    <a href="/editor/auteurs/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
                                 </td>
                             </tr>
                     {% endfor %}
