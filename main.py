@@ -115,13 +115,42 @@ def index():
 
 @app.route("/editor/leerdoelen", methods=('GET', 'POST'))
 def leerdoelen():
-    dbm = sqlite3.connect(DATABASE)
-    dbm.row_factory = sqlite3.Row
-    d = dbm.cursor()
-    d.execute("SELECT * FROM vragen WHERE leerdoel NOT IN (SELECT id FROM leerdoelen)")
-    rows = d.fetchall()
-    
+    con = sqlite3.connect(DATABASE)
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    cur.execute("SELECT * FROM vragen WHERE leerdoel NOT IN (SELECT id FROM leerdoelen)")
+    rows = cur.fetchall()
     return render_template("leerdoelen.html", rows = rows)
+
+@app.route("/editor/leerdoelen/update/<int:id>", methods = ['GET','POST'])
+def leerdoelencheck(id):
+    con = sqlite3.connect(DATABASE)
+    cur = con.cursor()
+    if request.method == 'POST':
+
+        vragen_id =                              id
+        leerdoel         =               request.form['leerdoel']
+        vraag      =               request.form['vraag']
+        auteur    =               request.form['auteur']
+        
+        cur.execute("UPDATE vragen SET leerdoel = ? WHERE id = ?",(leerdoel, vragen_id))
+        cur.execute("UPDATE vragen SET vraag = ? WHERE id = ?",(vraag, vragen_id))
+        cur.execute("UPDATE vragen SET auteur = ? WHERE id = ?",(auteur, vragen_id))
+        con.commit()
+        flash("Vraag succesvol aangepast")  
+        return redirect(url_for('leerdoelen'))
+ 
+    cur.execute('SELECT leerdoel FROM vragen WHERE ID = ?', (id,))
+    leerdoel = cur.fetchone()[0]
+    cur.execute('SELECT vraag FROM vragen WHERE ID = ?', (id,))
+    vraag = cur.fetchone()[0]
+    cur.execute('SELECT auteur FROM vragen WHERE ID = ?', (id,))
+    auteur = cur.fetchone()[0]
+    con.commit()
+    con.close
+    
+    return render_template('leerdoeleneditor.html', leerdoel=leerdoel,vraag=vraag, auteur=auteur)
+
 
 
 @app.route("/editor/cleaner/")
