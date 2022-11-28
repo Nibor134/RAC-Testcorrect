@@ -2,79 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Leerdoelen Editor</title>
+    <title>Database displayer</title>
     <meta name="description" content="Simple database display"/>
     <meta name="author" content="Rotterdam Academy"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="/static/bootstrap.css" type="text/css">
-
 </head>
 <body>
 <main>
-    <header>
-    <div class="header">
-    <a href="https://www.test-correct.nl/" class="logo"><img src=https://www.test-correct.nl/hubfs/raw_assets/public/test-correct/images/testcorrect-logo.svg> </a>
-    </div>        
+    <div class="container"><header>
+        <h1>Update Leerdoelen</h1>
+        <br/>
     </header>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col md-12">
-                    <div class="jumbotron p-3">
-                        <ul class="navbar">
-                            <a href="{{ url_for('menu') }}">Dashboard</a>
+        <form action='' method = "POST">
+        <table class="table">
+        <tr>
+        <form action="updateleerdoelen/{{leerdoelen}}" METHOD="POST">
             
-                        </ul>
-                        <h2>Controleer data op <b>Leerdoelen</b></h2>
-         
-                        {% with messages = get_flashed_messages() %}
-         
-                        {% if messages %}
-         
-                        {% for message in messages %}
-         
-                        <div class="alert alert-success alert-dismissable" role="alert">
-                            <button type="text" class="close" data-dismiss="alert" aria-label="close">
-                                <span aria-hidden="true">x</span>
-                            </button>
-                        </section>
-                        {{message}}
-         
-         
-                        </div>
-                        {% endfor %}
-         
-                        {% endif %}
-                        {% endwith %}
-                        <section>
-                        <div class="jumbotron p-3">
-                        <table class="table table-hover table-striped table-bordered">
-                            <tr>
-                                <th>ID</th>
-                                <th></th>
-                                <th>Leerdoel</th>
-                                <th></th>
-                                <th>Vraag</th>
-                                <th></th>
-                                <th>Auteur</th>
-                                <th></th>
-                            </tr>
-
-
-                           {% for row in rows %}
-                            <tr>
-                                {% for field in row %}
-                                <td>{{ field }}</td>
-                                <td>
-                                    {% endfor %}    
-                                    <a href="/editor/leerdoelen/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
-                                </td>
-                            </tr>
-                    {% endfor %}
-                </div>
-                </div>
-            </section>
-    </main>
- </body>
-        
- </html>
+          <section><tr>Leerdoel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tr><input type="text" placeholder="leerdoel" name="leerdoel" size="50" value = "{{leerdoelen}}"></section>
+          
+          <section><tr>Vraag&nbsp;&nbsp;&nbsp;&nbsp;</tr><input type="text" placeholder="vraag" name="vraag" size="50" value = "{{vraag}}"></section>
+          
+          <section><tr>Auteur&nbsp;&nbsp;</tr><input type="text" placeholder="auteur" name="auteur" size="50" value = "{{auteur}}"></section>
+          
+          </tr>
+        </section>
+        </tr>
+    </div>
+    <div> 
+        <tr> 
+            <button class="btn btn-primary" type="submit">Update</button>
+         </tr> 
+        </form>
+    </table>
+</div>
+</main>  
