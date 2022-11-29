@@ -18,13 +18,18 @@
         <table class="table">
         <tr>
         <form action="updateleerdoelen/{{leerdoelen}}" METHOD="POST">
-            
-          <section><tr>Leerdoel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tr><input type="text" placeholder="leerdoel" name="leerdoel" size="50" value = "{{leerdoel}}"></section>
           
           <section><tr>Vraag&nbsp;&nbsp;&nbsp;&nbsp;</tr><input type="text" placeholder="vraag" name="vraag" size="50" value = "{{vraag}}"></section>
           
           <section><tr>Auteur&nbsp;&nbsp;</tr><input type="text" placeholder="auteur" name="auteur" size="50" value = "{{auteur}}"></section>
-          
+          <section>
+            <label for="leerdoel">leerdoel</label>
+
+                <select name="leerdoel" id="vragen">
+                <option value="1">{{leerdoel_1}}</option>    
+                <option value="2">{{leerdoel_2}}</option>            
+                </select>
+        </section>
           </tr>
         </section>
         </tr>

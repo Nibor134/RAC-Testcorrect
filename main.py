@@ -139,7 +139,16 @@ def leerdoelencheck(id):
         con.commit()
         flash("Vraag succesvol aangepast")  
         return redirect(url_for('leerdoelen'))
- 
+
+    
+    
+    #Leerdoelen
+    cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 1')
+    leerdoel_1 = cur.fetchone()[0]
+    cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 2')
+    leerdoel_2 = cur.fetchone()[0]
+    
+    
     cur.execute('SELECT leerdoel FROM vragen WHERE ID = ?', (id,))
     leerdoel = cur.fetchone()[0]
     cur.execute('SELECT vraag FROM vragen WHERE ID = ?', (id,))
@@ -149,7 +158,7 @@ def leerdoelencheck(id):
     con.commit()
     con.close
     
-    return render_template('leerdoeleneditor.html', leerdoel=leerdoel,vraag=vraag, auteur=auteur)
+    return render_template('leerdoeleneditor.html', leerdoel=leerdoel,vraag=vraag, auteur=auteur,leerdoel_1=leerdoel_1,leerdoel_2=leerdoel_2)
 
 
 
