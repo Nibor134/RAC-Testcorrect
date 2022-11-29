@@ -26,22 +26,22 @@
           
           <section><tr>Geboortejaar&nbsp;&nbsp;</tr><input type="text" placeholder="geboortejaar" name="geboortejaar" size="50" value = "{{geboortejaar}}"></section>
           
-          <section><tr>Medewerker&nbsp;&nbsp;&nbsp;</tr><input type="text" placeholder="medewerker" name="medewerker" size="50" value = "{{medewerker}}"></section>
-        
-          <section><tr>Met pensioen&nbsp;</tr><input type="text" placeholder="Met Pensioen" name="met pensioen" size="50" value = "{{metpensioen}}"></section>
           <section>
-            <tr>
-                Met pensioen: <input type = "radio" name = "Met pensioen"  value="{{metpensioen}}"
-                    {% if '1' in auteur_metpensioen %}
-                        checked
-                    {% endif %}
-            />
-                Niet met pensioen: <input type = "radio" name = "Met pensioen"  value="{{metpensioen}}"
-                    {% if '0' in auteur_metpensioen %}
-                        checked
-                    {% endif %}
-            />
-          </tr>
+            <label for="medewerker">medewerker</label>
+
+                <select name="medewerker" id="auteurs" value = "{{medewerker}}">
+                <option value="1">In dienst</option>
+                <option value="0">Niet in dienst</option>
+                </select>
+        </section>
+          
+          <section>
+            <label for="Met pensioen">Met pensioen</label>
+
+                <select name="met pensioen" id="auteurs">
+                <option value="1">met pensioen</option>
+                <option value="0">niet met pensioen</option>
+                </select>
         </section>
         </tr>
     </div>

@@ -9001,5 +9001,9 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 
+.highlight{
+  font-weight:bold;
+  color:green;
+}
 
 /*# sourceMappingURL=bootstrap.css.map */
