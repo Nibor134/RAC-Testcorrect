@@ -11,7 +11,7 @@
 <body>
 <main>
     <h1>Database onderzoek</h1>
-    <p>Alle tabellen in de database</p>
+    <p>Alle tabellen in de database <i>{{ database_file }}</i>:</p>
     <ul>
         {% for table in table_list %}
         <li><a href="/table_details/{{ table }}">{{ table }}</a></li>
