@@ -44,7 +44,7 @@
                 {% endwith %}
                 
                 <div> 
-                    <input type= "text" name="search" id="search" class="form-control" />
+                    <input type= "text" placeholder="Plaats hier uw zoekopdracht" name="search" id="search" class="form-control" />
                 
                 <table class="table table-hover table-dark" id="html_tabel">
  
@@ -77,11 +77,13 @@
          });  
          function search_table(value){  
               $('#html_tabel tr').each(function(){  
-                   var found = 'false';  
+                   var found = 'false';
+                   var output = '';  
                    $(this).each(function(){  
                         if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)  
                         {  
-                             found = 'true';  
+                             found = 'true';
+                               
                         }  
                    });  
                    if(found == 'true')  
