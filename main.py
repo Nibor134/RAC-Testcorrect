@@ -113,6 +113,44 @@ def index():
         "tables.html", table_list=tables, database_file=DATABASE
     )
 
+@app.route("/editor/auteuren", methods=('GET', 'POST'))
+def auteuren():
+    con = sqlite3.connect(DATABASE)
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    cur.execute("SELECT * FROM vragen WHERE auteur NOT IN (SELECT id FROM auteurs)")
+    rows = cur.fetchall()
+    return render_template("Auteuren.html", rows = rows)
+
+@app.route("/editor/auteuren/update/<int:id>", methods = ['GET','POST'])
+def auteurencheck(id):
+    con = sqlite3.connect(DATABASE)
+    cur = con.cursor()
+    if request.method == 'POST':
+
+        vragen_id =                              id
+        vraag      =               request.form['vraag']
+        auteur    =               request.form['auteur']
+        
+        cur.execute("UPDATE vragen SET vraag = ? WHERE id = ?",(vraag, vragen_id))
+        cur.execute("UPDATE vragen SET auteur = ? WHERE id = ?",(auteur, vragen_id))
+        con.commit()
+        flash("Vraag succesvol aangepast")  
+        return redirect(url_for('auteuren'))
+
+    
+    cur.execute('SELECT vraag FROM vragen WHERE ID = ?', (id,))
+    vraag = cur.fetchone()[0]
+    cur.execute('SELECT auteur FROM vragen WHERE ID = ?', (id,))
+    auteur = cur.fetchone()[0]
+    con.commit()
+    con.close
+    
+    return render_template('auteureneditor.html', vraag=vraag, auteur=auteur)
+
+
+
+
 @app.route("/editor/leerdoelen", methods=('GET', 'POST'))
 def leerdoelen():
     con = sqlite3.connect(DATABASE)
@@ -171,7 +209,6 @@ def htmleditor():
     rows = cur.fetchall()  
     return render_template("HTMLeditor.html",rows = rows)
 
-    #tabellen met chartjs?
 
 @app.route("/editor/htmlcleaner/update/<int:id>", methods = ['GET','POST'])
 def update(id):
