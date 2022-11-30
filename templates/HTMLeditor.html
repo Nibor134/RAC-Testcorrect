@@ -16,10 +16,11 @@
 
 <main>
     <header>
-    <input id = "search" type ="text" value = "what"></header>
+        <input type="text" id="text-to-search" placeholder="Enter text to search..">
+        <button onclick="search()">Search</button>
     
   
-<div class="container searchable">
+<div class="container ">
     <div class="row">
         <div class="col md-12">
             <div class="jumbotron p-3">
@@ -84,6 +85,21 @@
 
 
 </html>
+<script>
+
+function search(){
+    let textToSearch = document.getElementById("text-to-search").value;
+    let paragraph = document.getElementById("paragraph");
+    textToSearch = textToSearch.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+
+    let pattern = new RegExp(`${textToSearch}`,"gi");
+
+    paragraph.innerHTML = paragraph.textContent.replace(pattern, match => `<mark>${match}</mark>`)
+}
+
+</script>
+
+
 <script>
 var regex = /(<br>|&nbsp;)/g;
 var regex = /(apples|oranges)/g;

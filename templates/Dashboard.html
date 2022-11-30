@@ -9,33 +9,41 @@
     <link rel="stylesheet" href="/static/basic.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
-    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>  
 </style>
 </head>
 <body>
-
 <header>
-    <div class="header">
-        <a href="https://www.test-correct.nl/" class="logo"><img src=https://www.test-correct.nl/hubfs/raw_assets/public/test-correct/images/testcorrect-logo.svg> </a>
-         
-            <div class="header-right">
-                <ul class="navbar">
-                    <a href="{{ url_for('auteureditor') }}">Auteur Editor</a>
-                    <a href="{{ url_for('htmleditor') }}">HTML Cleaner</a>
-                    <a href="{{ url_for('leerdoelen') }}">Leerdoelen check</a>
-                    <a href="{{ url_for('NullornotNull') }}">Null or not Null</a>
-                    <a href="{{ url_for('index') }}">Tabellen</a> 
-                </ul>
-            </div>
+<div class="header">
+    <a href="https://www.test-correct.nl/" class="logo"><img src=https://www.test-correct.nl/hubfs/raw_assets/public/test-correct/images/testcorrect-logo.svg> </a>         
+<div class="header-right">
+<div class="navbar">
+  <a href="{{ url_for('menu') }}">Dashboard</a>
+  <a href="{{ url_for('auteureditor') }}">Auteuren Beheer</a>
+  <div class="dropdown">
+    <button class="dropbtn">Editor 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="{{ url_for('htmleditor') }}">HTML Cleaner</a>
+      <a href="{{ url_for('leerdoelen') }}">Leerdoelen check</a>
+      <a href="{{ url_for('auteuren') }}">Auteuren check</a>
     </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Tabellen
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/table_details/auteurs">Auteurs</a>
+      <a href="/table_details/leerdoelen">Leerdoelen</a>
+      <a href="/table_details/vragen">Vragen</a>
+    </div>
+  </div>  
+</div>
+</div>
 </header>
 <section>
-    <nav>
-      <ul class="navbar"> <nav> <div><li><a href="/table_details/auteurs">Auteurs</a></li></div></nav> </ul>
-      <ul class="navbar"> <nav>  <div><li><a href="/table_details/leerdoelen">Leerdoelen</a></li></div></nav> </ul>
-      <ul class="navbar"> <nav> <div><li><a href="/table_details/vragen">Vragen</a></li></div></nav> </ul>
-    </nav>   
     <h1 class="header">Welcome "{{username}}"</h1>
   </section>
   <section> 

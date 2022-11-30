@@ -13,11 +13,12 @@
 <div class="container">
     <div class="row">
         <div class="col md-12">
+
             <div class="jumbotron p-3">
                 <ul>
                     <a href="{{ url_for('menu') }}">Dashboard</a>
                 </ul>
-                <h2>Controleer Leerdoelen met <b>Vragen</b></h2>
+                <h2>Controleer <b>Auteuren</b> met <b>Vragen</b></h2>
  
                 {% with messages = get_flashed_messages() %}
  
@@ -29,7 +30,7 @@
  
                     <button type="text" class="close" data-dismiss="alert" aria-label="close">
  
-                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true">x</span>
  
                     </button>
  
@@ -49,7 +50,7 @@
                     <tr>
  
                         <th>ID</th>
-                        <th>Leerdoelen</th>
+                        <th>Auteur</th>
                         <th>vraag</th>
                         <th>Action</th>
  
@@ -58,10 +59,10 @@
                    {% for row in rows %}
                     <tr>
                         <td>{{row.id}}</td>
-                        <td>{{row.leerdoel}}</td>
+                        <td>{{row.auteur}}</td>
                         <td>{{row.vraag}}</td>                             
                         <td>
-                            <a href="/editor/leerdoelen/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
+                            <a href="/editor/auteuren/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
                         
                         </td>
                         
