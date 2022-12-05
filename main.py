@@ -104,7 +104,13 @@ def menu():
     count4 = cur.fetchone()[0]
     print(count4)
     con.commit()
-    return render_template ("dashboard.html", count=count, count2=count2, count3=count3,count4=count4)
+    cur.execute("SELECT COUNT (*) FROM vragen WHERE leerdoel is NULL;")
+    count5 = cur.fetchone()[0]
+    con.commit()
+    cur.execute("SELECT COUNT (*) FROM vragen WHERE auteur is NULL;")
+    count6 = cur.fetchone()[0]
+    con.commit()
+    return render_template ("dashboard.html", count=count, count2=count2, count3=count3,count4=count4, count5=count5, count6=count6)
 
 @app.route("/tables")
 def index():
@@ -281,15 +287,23 @@ def updateauteurs(id):
 
 
 
-
-@app.route("/editor/NullorNotnull", methods=('GET', 'POST'))
-def NullornotNull():
+@app.route("/editor/NullorNotnullLeer", methods=('GET', 'POST'))
+def NullornotNullLeer():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
     cur = con.cursor()  
-    cur.execute("SELECT * FROM auteurs WHERE ? IS NULL;")  
+    cur.execute("SELECT * FROM vragen WHERE leerdoel is NULL;")  
     rows = cur.fetchall()  
-    return render_template("table_details.html",rows = rows)
+    return render_template("NullornotNull.html",rows = rows)
+
+@app.route("/editor/NullorNotnullAu", methods=('GET', 'POST'))
+def NullornotNullAu():
+    con = sqlite3.connect(DATABASE)  
+    con.row_factory = sqlite3.Row  
+    cur = con.cursor()  
+    cur.execute("SELECT * FROM vragen WHERE auteur is NULL;")  
+    rows = cur.fetchall()  
+    return render_template("NullornotNull.html",rows = rows)
 
 
 
