@@ -1,6 +1,7 @@
 import os.path
 import sys
 import sqlite3
+#import pandas as pd 
 
 from flask import Flask, render_template, redirect, url_for, request, session, g, flash, abort
 
@@ -321,3 +322,13 @@ def table_content(table_name=None):
 
 if __name__ == "__main__":
     app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)
+
+#CSV export
+#connection = sqlite3.connect('testcorrect_vragen.db')
+#cursor = connection.cursor()
+#sqlquery = 'SELECT * FROM auteurs'
+#cursor.execute(sqlquery)
+#result = cursor.fetchall()
+#for row in result: 
+#    df = pd.read_sql_query(sqlquery,connection)
+#    df.to_csv('output.CSV', index = False)
