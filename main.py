@@ -80,7 +80,7 @@ def login():
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
     # Show the login form with message (if any)
-    return render_template('login.html', msg=msg,)
+    return render_template('login3.html', msg=msg,)
 
 
 
@@ -213,7 +213,7 @@ def htmleditor():
     cur = con.cursor()
     cur.execute("SELECT * FROM vragen WHERE vraag LIKE '%<br>%' OR vraag LIKE '%&nbsp;%'")  
     rows = cur.fetchall()  
-    return render_template("HTMLeditor.html",rows = rows)
+    return render_template("Testsearchbar.html",rows = rows)
 
 
 @app.route("/editor/htmlcleaner/update/<int:id>", methods = ['GET','POST'])
@@ -284,8 +284,7 @@ def updateauteurs(id):
     con.close
     #
     return render_template('Auteurupdate.html', voornamen=voornamen,achternaam=achternaam, geboortejaar=geboortejaar, medewerker=medewerker,metpensioen=metpensioen)
-
-
+1
 
 @app.route("/editor/NullorNotnullLeer", methods=('GET', 'POST'))
 def NullornotNullLeer():
