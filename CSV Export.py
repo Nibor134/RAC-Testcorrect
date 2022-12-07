@@ -1,15 +1,16 @@
 import sqlite3
-import pandas as pd 
+import pandas as pd
+import os.path 
 #import sqlalchemy
 
 #SQL steps
 #select * from auteurs
 #select * from leerdoelen
 #select * from vragen
-
-connection = sqlite3.connect('testcorrect_vragen.db')
+DATABASE = os.path.join('databases', 'testcorrect_vragen.db')
+connection = sqlite3.connect(DATABASE)
 cursor = connection.cursor()
-sqlquery = 'SELECT * FROM Auteurs'
+sqlquery = "SELECT * FROM auteurs"
 cursor.execute(sqlquery)
 result = cursor.fetchall()
 for row in result: 
