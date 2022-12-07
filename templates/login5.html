@@ -9,16 +9,24 @@
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
 <body>
-  <h1>Sign In</h1>
+  
   <form action="" method="post" novalidate>
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <h1>Sign In</h1>
       {{ form.hidden_tag() }}
       <p>
+        <div class="field">  
+        <label class="label">Username</label>        
           {{ form.username.label }}<br>
           {{ form.username(size=32) }}<br>
           {% for error in form.username.errors %}
           <span style="color: red;">[{{ error }}]</span>
           {% endfor %}
       </p>
+    </div>
+    <div class="field">  
+      <label class="label">Username</label>   
       <p>
           {{ form.password.label }}<br>
           {{ form.password(size=32) }}<br>
@@ -26,7 +34,9 @@
           <span style="color: red;">[{{ error }}]</span>
           {% endfor %}
       </p>
-      
+      </div>
       <p>{{ form.submit() }}</p>
+    </div>
+  </div>
     </form>
 </body>

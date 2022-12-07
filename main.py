@@ -78,15 +78,14 @@ def login():
     conn = sqlite3.connect(DATABASE)
     curs = conn.cursor()
     curs.execute("SELECT * FROM Users where username = (?)",    [form.username.data])
-    user = list(curs.fetchone())
+    user = curs.fetchone()
     Us = load_user(user[0])
     if form.username.data == Us.username and form.password.data == Us.password:
         login_user(Us)
-        flash('Logged in successfully ')
-        redirect(url_for('menu'))
+        return redirect(('menu'))
     else:
         flash('Login Unsuccessfull.')
-  return render_template('login5.html',title='Login', form=form)
+  return render_template('login.html',title='Login', form=form)
 
 
 
