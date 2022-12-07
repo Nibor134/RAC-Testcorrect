@@ -20,6 +20,7 @@
 <div class="navbar">
   <a href="{{ url_for('menu') }}">Dashboard</a>
   <a href="{{ url_for('auteureditor') }}">Auteuren Beheer</a>
+  <a href="{{ url_for('logout') }}">Logout</a>
   <div class="dropdown">
     <button class="dropbtn">Editor 
       <i class="fa fa-caret-down"></i>
@@ -28,6 +29,8 @@
       <a href="{{ url_for('htmleditor') }}">HTML Cleaner</a>
       <a href="{{ url_for('leerdoelen') }}">Leerdoelen check</a>
       <a href="{{ url_for('auteuren') }}">Auteuren check</a>
+      <a href="{{ url_for('NullornotNullLeer') }}">Lege Leerdoelen</a>
+      <a href="{{ url_for('NullornotNullAu') }}">Lege Auteuren</a>
     </div>
   </div>
   <div class="dropdown">
@@ -51,9 +54,9 @@
         
         <canvas id="leerdoelenChart" style="width:100%;max-width:700px" ></canvas>
         <script METHOD = "GET" > 
-    var xValues = ["Foutieve Leerdoelen", "Foutieve Auteur"];
-    var yValues = ["{{count}}","{{count4}}"];
-    var barColors = ["red", "orange"];
+    var xValues = ["Foutieve Leerdoelen", "Foutieve Auteur","Lege Leerdoel","Lege Auteur"];
+    var yValues = ["{{count}}","{{count4}}","{{count5}}","{{count6}}"];
+    var barColors = ["red", "orange","purple","yellow"];
 
     
     new Chart("leerdoelenChart", {

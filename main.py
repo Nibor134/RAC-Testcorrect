@@ -1,9 +1,21 @@
 import os.path
 import sys
 import sqlite3
+#import pandas as pd 
+<<<<<<< HEAD
+import os.path
+import sqlite3
+from flask import Flask
+from flask import render_template, url_for, flash, request, redirect, Response
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
+=======
 
 from flask import Flask, render_template, redirect, url_for, request, session, g, flash, abort
 
+>>>>>>> 8c0ab29d80ba62c477c6a3ae0fcd50d250116edf
 from lib.tablemodel import DatabaseModel
 from lib.demodatabase import create_demo_database
 
@@ -19,43 +31,71 @@ app.secret_key = 'Hogeschoolrotterdam'
 DATABASE = os.path.join(app.root_path, 'databases', 'testcorrect_vragen.db')
 dbm = DatabaseModel(DATABASE)
 
-def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = sqlite3.connect(DATABASE)
-    return db
+login_manager = LoginManager(app)
+login_manager.login_view = "login"
 
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
+class LoginForm(FlaskForm):
+ username = StringField('Username',validators=[DataRequired()])
+ password = PasswordField('Password',validators=[DataRequired()])
+ remember = BooleanField('Remember Me')
+ submit = SubmitField('Login')
+ def validate_username(self, username):
+    conn = sqlite3.connect(DATABASE)
+    curs = conn.cursor()
+    curs.execute("SELECT username FROM Users where username = (?)",[username.data])
+    valusername = curs.fetchone()
+    if valusername is None:
+      raise ValidationError('This username ID is not registered. Please register before login')
 
-class User:
-    def __init__(self, id , username, password):
-        self.id = id
-        self.username = username
-        self.password = password
+class User(UserMixin):
+    def __init__(self, id, username, password):
+         self.id = id
+         self.username = username
+         self.password = password
+         self.authenticated = False
+    def is_active(self):
+         return self.is_active()
+    def is_anonymous(self):
+         return False
+    def is_authenticated(self):
+         return self.authenticated
+    def is_active(self):
+         return True
+    def get_id(self):
+         return self.id
 
-    def _repr__(self):
-        return f'<User: {self.username}>'
+@login_manager.user_loader
+def load_user(user_id):
+   conn = sqlite3.connect(DATABASE)
+   curs = conn.cursor()
+   curs.execute("SELECT * from Users where id = (?)",[user_id])
+   lu = curs.fetchone()
+   if lu is None:
+      return None
+   else:
+      return User(int(lu[0]), lu[1], lu[2])
 
-users = []
-users.append(User(id=1, username='Robin', password='Winkels'))
-users.append(User(id=2, username='Max', password='Looij'))
-users.append(User(id=3, username='Stan', password='Verdoorn'))
-users.append(User(id=4, username='Alex', password='Elwuar'))
-
-@app.before_request
-def before_request():
-    g.user = None
-
-    if 'user_id' in session:
-        user = [x for x in users if x.id == session['user_id']][0]
-        g.user = user
-
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/login", methods=['GET','POST'])
 def login():
+<<<<<<< HEAD
+  if current_user.is_authenticated:
+     return redirect(url_for('menu'))
+  form = LoginForm()
+  if form.validate_on_submit():
+     conn = sqlite3.connect(DATABASE)
+     curs = conn.cursor()
+     curs.execute("SELECT * FROM Users where username = (?)",    [form.username.data])
+     user = list(curs.fetchone())
+     Us = load_user(user[0])
+     if form.username.data == Us.username and form.password.data == Us.password:
+        login_user(Us, remember=form.remember.data)
+        list({form.username.data})[0]
+        flash('Logged in successfully ')
+        redirect(url_for('menu'))
+     else:
+        flash('Login Unsuccessfull.')
+  return render_template('login5.html',title='Login', form=form)
+=======
     # Output message if something goes wrong...
     msg = ''
     # Check if "username" and "password" POST requests exist (user submitted form)
@@ -80,11 +120,13 @@ def login():
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
     # Show the login form with message (if any)
-    return render_template('login.html', msg=msg,)
+    return render_template('login3.html', msg=msg,)
+>>>>>>> 8c0ab29d80ba62c477c6a3ae0fcd50d250116edf
 
 
 
 @app.route("/menu", methods=('GET', 'POST'))
+@login_required
 def menu():
     con = sqlite3.connect(DATABASE)
     cur = con.cursor()
@@ -104,9 +146,16 @@ def menu():
     count4 = cur.fetchone()[0]
     print(count4)
     con.commit()
-    return render_template ("dashboard.html", count=count, count2=count2, count3=count3,count4=count4)
+    cur.execute("SELECT COUNT (*) FROM vragen WHERE leerdoel is NULL;")
+    count5 = cur.fetchone()[0]
+    con.commit()
+    cur.execute("SELECT COUNT (*) FROM vragen WHERE auteur is NULL;")
+    count6 = cur.fetchone()[0]
+    con.commit()
+    return render_template ("dashboard.html", count=count, count2=count2, count3=count3,count4=count4, count5=count5, count6=count6)
 
 @app.route("/tables")
+@login_required
 def index():
     tables = dbm.get_table_list()
     return render_template(
@@ -114,6 +163,7 @@ def index():
     )
 
 @app.route("/editor/auteuren", methods=('GET', 'POST'))
+@login_required
 def auteuren():
     con = sqlite3.connect(DATABASE)
     con.row_factory = sqlite3.Row
@@ -123,6 +173,7 @@ def auteuren():
     return render_template("Auteuren.html", rows = rows)
 
 @app.route("/editor/auteuren/update/<int:id>", methods = ['GET','POST'])
+@login_required
 def auteurencheck(id):
     con = sqlite3.connect(DATABASE)
     cur = con.cursor()
@@ -152,6 +203,7 @@ def auteurencheck(id):
 
 
 @app.route("/editor/leerdoelen", methods=('GET', 'POST'))
+@login_required
 def leerdoelen():
     con = sqlite3.connect(DATABASE)
     con.row_factory = sqlite3.Row
@@ -161,6 +213,7 @@ def leerdoelen():
     return render_template("leerdoelen.html", rows = rows)
 
 @app.route("/editor/leerdoelen/update/<int:id>", methods = ['GET','POST'])
+@login_required
 def leerdoelencheck(id):
     con = sqlite3.connect(DATABASE)
     cur = con.cursor()
@@ -201,16 +254,18 @@ def leerdoelencheck(id):
 
 
 @app.route("/editor/cleaner/")
+@login_required
 def htmleditor():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
     cur = con.cursor()
     cur.execute("SELECT * FROM vragen WHERE vraag LIKE '%<br>%' OR vraag LIKE '%&nbsp;%'")  
     rows = cur.fetchall()  
-    return render_template("HTMLeditor.html",rows = rows)
+    return render_template("Testsearchbar.html",rows = rows)
 
 
 @app.route("/editor/htmlcleaner/update/<int:id>", methods = ['GET','POST'])
+@login_required
 def update(id):
     con = sqlite3.connect(DATABASE)
     cur = con.cursor()
@@ -233,6 +288,7 @@ def update(id):
     return render_template('HTMLupdate.html', vragen=vragen)
 
 @app.route("/editor/auteurs", methods=('GET', 'POST'))
+@login_required
 def auteureditor():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
@@ -243,6 +299,7 @@ def auteureditor():
     return render_template("Auteureditor.html",rows = rows)
 
 @app.route("/editor/auteurs/update/<int:id>", methods = ['GET','POST'])
+@login_required
 def updateauteurs(id):
     con = sqlite3.connect(DATABASE)
     cur = con.cursor()
@@ -278,24 +335,36 @@ def updateauteurs(id):
     con.close
     #
     return render_template('Auteurupdate.html', voornamen=voornamen,achternaam=achternaam, geboortejaar=geboortejaar, medewerker=medewerker,metpensioen=metpensioen)
+1
 
-
-
-
-@app.route("/editor/NullorNotnull", methods=('GET', 'POST'))
-def NullornotNull():
+@app.route("/editor/NullorNotnullLeer", methods=('GET', 'POST'))
+def NullornotNullLeer():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
     cur = con.cursor()  
-    cur.execute("SELECT * FROM auteurs WHERE ? IS NULL;")  
+    cur.execute("SELECT * FROM vragen WHERE leerdoel is NULL;")  
     rows = cur.fetchall()  
-    return render_template("table_details.html",rows = rows)
+    return render_template("NullornotNull.html",rows = rows)
+
+@app.route("/editor/NullorNotnullAu", methods=('GET', 'POST'))
+<<<<<<< HEAD
+@login_required
+=======
+>>>>>>> 8c0ab29d80ba62c477c6a3ae0fcd50d250116edf
+def NullornotNullAu():
+    con = sqlite3.connect(DATABASE)  
+    con.row_factory = sqlite3.Row  
+    cur = con.cursor()  
+    cur.execute("SELECT * FROM vragen WHERE auteur is NULL;")  
+    rows = cur.fetchall()  
+    return render_template("NullornotNull.html",rows = rows)
 
 
 
 
 # The table route displays the content of a table
 @app.route("/table_details/<table_name>")
+@login_required
 def table_content(table_name=None):
     if not table_name:
         return "Missing table name", 400  # HTTP 400 = Bad Request
@@ -305,5 +374,25 @@ def table_content(table_name=None):
             "table_details.html", rows=rows, columns=column_names, table_name=table_name
         )
 
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect("login")
+
+
 if __name__ == "__main__":
     app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)
+
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8c0ab29d80ba62c477c6a3ae0fcd50d250116edf
+#CSV export
+#connection = sqlite3.connect('testcorrect_vragen.db')
+#cursor = connection.cursor()
+#sqlquery = 'SELECT * FROM auteurs'
+#cursor.execute(sqlquery)
+#result = cursor.fetchall()
+#for row in result: 
+#    df = pd.read_sql_query(sqlquery,connection)
+#    df.to_csv('output.CSV', index = False)
