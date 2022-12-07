@@ -1,44 +1,43 @@
-{% extends "html_template.html" %}
-{% block info %}
- <form method='POST' action="">
-  {{ form.hidden_tag() }}
-  <fieldset class="form-group"> 
-   <h1>Log In</h1>
-   <div class="form-group">
-    {{ form.email.label(class="form-control-label")}}
-    {% if form.email.errors %}
-     {{ form.email(class="form-control form-control-lg is-invalid") }}
-     <div class="invalid-feedback">
-      {% for error in form.email.errors %}
-       <span>{{ error }}</span>
-      {% endfor %}
-     </div>
-    {% else %}  
-     {{ form.email(class="form-control form-control-lg")}}
-    {% endif %}
-   </div>
-   <div class="form-group">
-    {{ form.password.label(class="form-control-label")}}
-    {% if form.password.errors %}
-     {{ form.password(class="form-control form-control-lg is-invalid") }}
-     <div class="invalid-feedback">
-      {% for error in form.password.errors %}
-       <span>{{ error }}</span>
-      {% endfor %}
-     </div>
-    {% else %}
-     {{ form.password(class="form-control form-control-lg")}}
-    {% endif %}
-   </div>
-   <div class="form-group">
-    {{ form.remember(class="form-check-input") }} 
-    {{ form.remember.label(class="form-check-label") }}
-   </div>
-  </fieldset>
-  <div class="form-group">
-   {{ form.submit(class="btn btn-outline-info")}}
-  </div>
-  <a href="javascript:void(0)" onclick="location.href='/reset'">Forgot Password?</a>
- </form>
- <h6>Create an Account <a href="javascript:void(0)" onclick="location.href='/register'">Sign Up Now</a></h6>
-{% endblock info %}
+<style>
+    /* Form container */
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+    
+    /* Form input fields */
+    input {
+        width: 300px;
+        height: 40px;
+        margin: 10px;
+        padding: 10px;
+        font-size: 18px;
+        border: 1px solid #ccc;
+    }
+    
+    /* Form submit button */
+    button {
+        width: 150px;
+        height: 40px;
+        margin: 10px;
+        font-size: 18px;
+        background-color: #337ab7;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    </style>
+    
+    <form method="POST">
+        <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://www.test-correct.nl/hubfs/raw_assets/public/test-correct/images/testcorrect-logo.svg" alt="" /></p>   
+        <label class="label">Username</label>
+        <div class="control has-icons-left has-icons-right">
+        <input class="input" type="text" name="username" placeholder="Username">
+        </div>
+        <label class="label">Password</label>
+        <input class="input" type="password" name="password" placeholder="Password">
+        <button type="submit" class="button is-success">Sign In</button>
+    </form>
