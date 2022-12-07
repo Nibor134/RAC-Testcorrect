@@ -9001,9 +9001,7 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 
-.highlight{
-  font-weight:bold;
-  color:green;
+.highlight {
+  background-color: yellow;
 }
-
 /*# sourceMappingURL=bootstrap.css.map */

@@ -2,6 +2,7 @@ import os.path
 import sys
 import sqlite3
 #import pandas as pd 
+<<<<<<< HEAD
 import os.path
 import sqlite3
 from flask import Flask
@@ -10,6 +11,11 @@ from flask_login import LoginManager, UserMixin, login_required, login_user, log
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
+=======
+
+from flask import Flask, render_template, redirect, url_for, request, session, g, flash, abort
+
+>>>>>>> 8c0ab29d80ba62c477c6a3ae0fcd50d250116edf
 from lib.tablemodel import DatabaseModel
 from lib.demodatabase import create_demo_database
 
@@ -71,6 +77,7 @@ def load_user(user_id):
 
 @app.route("/login", methods=['GET','POST'])
 def login():
+<<<<<<< HEAD
   if current_user.is_authenticated:
      return redirect(url_for('menu'))
   form = LoginForm()
@@ -88,6 +95,33 @@ def login():
      else:
         flash('Login Unsuccessfull.')
   return render_template('login5.html',title='Login', form=form)
+=======
+    # Output message if something goes wrong...
+    msg = ''
+    # Check if "username" and "password" POST requests exist (user submitted form)
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        # Create variables for easy access
+        session.pop('user_id', None)
+        username = request.form['username']
+        password = request.form['password']
+        # Check if account exists using MySQL
+        conn = sqlite3.connect(DATABASE)
+        cursor = conn.cursor()
+        Users = cursor.execute('SELECT * FROM Users WHERE (username = ? AND password = ?)', (username, password))
+        # Fetch one record and return result
+        Users = cursor.fetchall()
+        # If account exists in accounts table in our database
+        if Users:
+            # Create session data, we can access this data in other routes
+            session['loggedin'] = True
+            # Redirect to home page
+            return redirect(url_for('menu'))
+        else:
+            # Account doesnt exist or username/password incorrect
+            msg = 'Incorrect username/password!'
+    # Show the login form with message (if any)
+    return render_template('login3.html', msg=msg,)
+>>>>>>> 8c0ab29d80ba62c477c6a3ae0fcd50d250116edf
 
 
 
@@ -313,7 +347,10 @@ def NullornotNullLeer():
     return render_template("NullornotNull.html",rows = rows)
 
 @app.route("/editor/NullorNotnullAu", methods=('GET', 'POST'))
+<<<<<<< HEAD
 @login_required
+=======
+>>>>>>> 8c0ab29d80ba62c477c6a3ae0fcd50d250116edf
 def NullornotNullAu():
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
@@ -346,7 +383,10 @@ def logout():
 if __name__ == "__main__":
     app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8c0ab29d80ba62c477c6a3ae0fcd50d250116edf
 #CSV export
 #connection = sqlite3.connect('testcorrect_vragen.db')
 #cursor = connection.cursor()

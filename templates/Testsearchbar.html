@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="/static/bootstrap.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-     
 </head>
 <body>
 <main>
@@ -44,8 +43,7 @@
                 {% endwith %}
                 
                 <div> 
-                    <input type= "text" placeholder="Plaats hier uw zoekopdracht" name="search" id="search" class="form-control" />
-                
+                    <input type= "text" placeholder="Plaats hier uw zoekopdracht" name="search" id="search-input" class="form-control" />
                 <table class="table table-hover table-dark" id="html_tabel">
  
                     <thead>
@@ -70,31 +68,25 @@
 
 </html>
 
-<script>  
-    $(document).ready(function(){  
-         $('#search').keyup(function(){  
-              search_table($(this).val());  
-         });  
-         function search_table(value){  
-              $('#html_tabel tr').each(function(){  
-                   var found = 'false';
-                   var output = '';  
-                   $(this).each(function(){  
-                        if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)  
-                        {  
-                             found = 'true';
-                               
-                        }  
-                   });  
-                   if(found == 'true')  
-                   {  
-                        $(this).show();  
-                   }  
-                   else  
-                   {  
-                        $(this).hide();  
-                   }  
-              });  
-         }  
-    });  
-</script> 
+<script>
+
+// JavaScript to add the highlighting behavior
+const searchInput = document.getElementById('search-input');
+const tableRows = document.querySelectorAll('table tr');
+
+searchInput.addEventListener('input', () => {
+  // Get the search query
+  const query = searchInput.value.toLowerCase();
+
+  // Create a regular expression to match the search query as a word within the cell's text content
+  const regex = new RegExp(`\\b${query}\\b`, 'gi');
+
+  // Loop through the rows and cells
+  for (const row of tableRows) {
+    for (const cell of row.cells) {
+      // Use the replace method to wrap the matching words in a <span> element with the highlight class
+      cell.innerHTML = cell.textContent.replace(regex, '<span class="highlight">$&</span>');
+    }
+  }
+});
+</script>

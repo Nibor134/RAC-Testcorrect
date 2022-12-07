@@ -50,8 +50,9 @@
                     <tr>
  
                         <th>ID</th>
-                        <th>Auteur</th>
+                        <th>leerdoel</th>
                         <th>vraag</th>
+                        <th>Auteur</th>
                         <th>Action</th>
  
                     </tr>
@@ -59,8 +60,9 @@
                    {% for row in rows %}
                     <tr>
                         <td>{{row.id}}</td>
-                        <td>{{row.auteur}}</td>
-                        <td>{{row.vraag}}</td>                             
+                        <td>{{row.leerdoel}}</td>
+                        <td>{{row.vraag}}</td>
+                        <td>{{row.auteur}}</td>                             
                         <td>
                             <a href="/editor/auteuren/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
                         
