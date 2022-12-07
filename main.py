@@ -343,6 +343,10 @@ def logout():
     logout_user()
     return redirect("login")
 
+@app.route("/")
+def redirectpage():
+    return redirect("login")
+
 
 if __name__ == "__main__":
     app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)
