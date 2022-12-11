@@ -15,6 +15,7 @@ from lib.tablemodel import DatabaseModel
 from lib.demodatabase import create_demo_database
 from greeting import get_greeting
 from Dayandtime import show_time_in_dutch
+from CSV_Export import csv_auteurs,csv_leerdoelen,csv_vragen
 
 #Flask Settings
 LISTEN_ALL = "0.0.0.0"
@@ -133,6 +134,18 @@ def index():
     tables = dbm.get_table_list()
     return render_template(
         "tables.html", table_list=tables, database_file=DATABASE
+    )
+@app.route("/tables/csv_export", methods=('GET', 'POST'))
+@login_required
+def csv():
+    if request.method == 'POST':
+        #csv1 = csv_auteurs()
+        #csv2 = csv_leerdoelen()
+        #csv3 = csv_vragen()
+        return redirect(url_for('menu'), csv1=csv1, csv2=csv2, csv3=csv3)
+
+    return render_template(
+            "tables_export.html"
     )
 
 @app.route("/editor/auteuren", methods=('GET', 'POST'))
