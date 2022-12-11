@@ -9006,5 +9006,9 @@ a.text-dark:hover, a.text-dark:focus {
   color:green;
 }
 
+input {
+  width: 98%;
+  padding: 1%;
+}
 
 /*# sourceMappingURL=bootstrap.css.map */
