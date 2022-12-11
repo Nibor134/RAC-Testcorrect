@@ -14,7 +14,7 @@ from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from lib.tablemodel import DatabaseModel
 from lib.demodatabase import create_demo_database
 from greeting import get_greeting
-
+from Dayandtime import show_time_in_dutch
 
 #Flask Settings
 LISTEN_ALL = "0.0.0.0"
@@ -98,6 +98,7 @@ def login():
 @app.route("/menu", methods=('GET', 'POST'))
 @login_required
 def menu():
+    Today = show_time_in_dutch()
     con = sqlite3.connect(DATABASE)
     cur = con.cursor()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE leerdoel NOT IN (SELECT id FROM leerdoelen)")
@@ -124,8 +125,7 @@ def menu():
     con.commit()
     return render_template ("dashboard.html",
      count=count, count2=count2, count3=count3,
-     count4=count4, count5=count5, count6=count6
-     )
+     count4=count4, count5=count5, count6=count6, Today=Today)
 
 @app.route("/tables")
 @login_required
