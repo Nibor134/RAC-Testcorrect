@@ -6,7 +6,7 @@
     <meta name="description" content="Simple database display"/>
     <meta name="author" content="Rotterdam Academy"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="/static/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="/static/basic.css" type="text/css">
 </head>
 <body>
 <main>
@@ -19,15 +19,19 @@
         <tr>
         <form action="updateleerdoelen/{{leerdoelen}}" METHOD="POST">
           
-          <section><tr>Vraag&nbsp;&nbsp;&nbsp;&nbsp;</tr><input type="text" placeholder="vraag" name="vraag" size="50" value = "{{vraag}}"></section>
-          
-          <section><tr>Auteur&nbsp;&nbsp;</tr><input type="text" placeholder="auteur" name="auteur" size="50" value = "{{auteur}}"></section>
+          <section><tr>Vraag&nbsp;&nbsp;&nbsp;&nbsp;</tr><input type="text" placeholder="vraag" name="vraag" style='width:100%' value = "{{vraag}}"></section>
+          &nbsp;&nbsp;&nbsp;
           <section>
-            <label for="leerdoel">leerdoel</label>
+            <label for="leerdoel">leerdoel&nbsp;&nbsp;&nbsp;</label>
 
                 <select name="leerdoel" id="vragen">
                 <option value="1">{{leerdoel_1}}</option>    
-                <option value="2">{{leerdoel_2}}</option>            
+                <option value="2">{{leerdoel_2}}</option>
+                <option value="2">{{leerdoel_3}}</option> 
+                <option value="2">{{leerdoel_4}}</option> 
+                <option value="2">{{leerdoel_5}}</option> 
+                <option value="2">{{leerdoel_6}}</option> 
+                <option value="2">{{leerdoel_7}}</option>             
                 </select>
         </section>
           </tr>
@@ -35,10 +39,11 @@
         </tr>
     </div>
     <div> 
+        <section>
         <tr> 
             <button class="btn btn-primary" type="submit">Update</button>
          </tr> 
         </form>
-    </table>
+</section>
 </div>
 </main>  

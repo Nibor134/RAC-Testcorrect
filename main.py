@@ -104,22 +104,23 @@ def menu():
     cur = con.cursor()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE leerdoel NOT IN (SELECT id FROM leerdoelen)")
     count = cur.fetchone()[0]
-    print(count)
+    
     con.commit()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE vraag LIKE '%<br>%'")
     count2 = cur.fetchone()[0]
-    print(count2)
+    
     con.commit()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE vraag LIKE '%&nbsp;%'")
     count3 = cur.fetchone()[0]
-    print(count3)
+    
     con.commit()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE auteur NOT IN (SELECT id FROM auteurs)")
     count4 = cur.fetchone()[0]
-    print(count4)
+    
     con.commit()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE leerdoel is NULL;")
     count5 = cur.fetchone()[0]
+
     con.commit()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE auteur is NULL;")
     count6 = cur.fetchone()[0]
@@ -224,6 +225,16 @@ def leerdoelencheck(id):
     leerdoel_1 = cur.fetchone()[0]
     cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 2')
     leerdoel_2 = cur.fetchone()[0]
+    cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 3')
+    leerdoel_3 = cur.fetchone()[0]
+    cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 4')
+    leerdoel_4 = cur.fetchone()[0]
+    cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 5')
+    leerdoel_5 = cur.fetchone()[0]
+    cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 6')
+    leerdoel_6 = cur.fetchone()[0]
+    cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 7')
+    leerdoel_7 = cur.fetchone()[0]
     
     
     cur.execute('SELECT leerdoel FROM vragen WHERE ID = ?', (id,))
@@ -235,7 +246,13 @@ def leerdoelencheck(id):
     con.commit()
     con.close
     
-    return render_template('leerdoeleneditor.html', leerdoel=leerdoel,vraag=vraag, auteur=auteur,leerdoel_1=leerdoel_1,leerdoel_2=leerdoel_2)
+    return render_template(
+        'leerdoeleneditor.html', 
+        leerdoel=leerdoel, vraag=vraag, 
+        auteur=auteur,leerdoel_1=leerdoel_1,
+        leerdoel_2=leerdoel_2,leerdoel_3=leerdoel_3, 
+        leerdoel_4=leerdoel_4, leerdoel_5=leerdoel_5,
+        leerdoel_6=leerdoel_6,leerdoel_7=leerdoel_7)
 
 
 
