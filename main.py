@@ -4,6 +4,7 @@ import sqlite3
 #import pandas as pd 
 import os.path
 import sqlite3
+import datetime
 from flask import Flask
 from flask import render_template, url_for, flash, request, redirect, Response
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
@@ -12,6 +13,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from lib.tablemodel import DatabaseModel
 from lib.demodatabase import create_demo_database
+
 
 #Flask Settings
 LISTEN_ALL = "0.0.0.0"
@@ -58,6 +60,21 @@ class User(UserMixin):
     def get_id(self):
          return self.id
 
+
+def get_greeting():
+  now = datetime.datetime.now()
+  hour = now.hour
+
+  if hour < 12:
+    return "Goedemorgen"
+  elif hour < 17:
+    return "Goedemiddag"
+  else:
+    return "Goedeavond"
+greeting = get_greeting()
+
+
+
 @login_manager.user_loader
 def load_user(user_id):
     conn = sqlite3.connect(DATABASE)
@@ -71,9 +88,11 @@ def load_user(user_id):
 
 @app.route("/login", methods=['GET','POST'])
 def login():
+
   if current_user.is_authenticated:
     return redirect(url_for('menu'))
   form = LoginForm()
+  global greeting
   if form.validate_on_submit():
     conn = sqlite3.connect(DATABASE)
     curs = conn.cursor()
@@ -85,7 +104,8 @@ def login():
         return redirect(('menu'))
     else:
         flash('Login Unsuccessfull.')
-  return render_template('login.html',title='Login', form=form)
+    
+  return render_template('login.html',title='Login', form=form, greeting = greeting)
 
 
 
@@ -346,6 +366,8 @@ def logout():
 @app.route("/")
 def redirectpage():
     return redirect("login")
+
+    
 
 
 if __name__ == "__main__":
