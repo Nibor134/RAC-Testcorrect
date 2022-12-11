@@ -13,6 +13,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from lib.tablemodel import DatabaseModel
 from lib.demodatabase import create_demo_database
+from greeting import get_greeting
 
 
 #Flask Settings
@@ -60,21 +61,6 @@ class User(UserMixin):
     def get_id(self):
          return self.id
 
-
-def get_greeting():
-  now = datetime.datetime.now()
-  hour = now.hour
-
-  if hour < 12:
-    return "Goedemorgen"
-  elif hour < 17:
-    return "Goedemiddag"
-  else:
-    return "Goedeavond"
-greeting = get_greeting()
-
-
-
 @login_manager.user_loader
 def load_user(user_id):
     conn = sqlite3.connect(DATABASE)
@@ -92,7 +78,7 @@ def login():
   if current_user.is_authenticated:
     return redirect(url_for('menu'))
   form = LoginForm()
-  global greeting
+  greeting = get_greeting()
   if form.validate_on_submit():
     conn = sqlite3.connect(DATABASE)
     curs = conn.cursor()

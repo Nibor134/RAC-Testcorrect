@@ -5,11 +5,11 @@ def get_greeting():
   hour = now.hour
 
   if hour < 12:
-    return "Good Morning"
+    return "Goedemorgen"
   elif hour < 17:
-    return "Good Afternoon"
+    return "Goedemiddag"
   else:
-    return "Good Evening"
-    
+    return "Goedeavond"
+
 greeting = get_greeting()
 print(greeting)
