@@ -4,6 +4,7 @@ import sqlite3
 #import pandas as pd 
 import os.path
 import sqlite3
+import datetime
 from flask import Flask
 from flask import render_template, url_for, flash, request, redirect, Response
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
@@ -12,6 +13,9 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from lib.tablemodel import DatabaseModel
 from lib.demodatabase import create_demo_database
+from greeting import get_greeting
+from Dayandtime import show_time_in_dutch
+from CSV_Export import csv_auteurs,csv_leerdoelen,csv_vragen
 
 #Flask Settings
 LISTEN_ALL = "0.0.0.0"
@@ -60,65 +64,77 @@ class User(UserMixin):
 
 @login_manager.user_loader
 def load_user(user_id):
-   conn = sqlite3.connect(DATABASE)
-   curs = conn.cursor()
-   curs.execute("SELECT * from Users where id = (?)",[user_id])
-   lu = curs.fetchone()
-   if lu is None:
+    conn = sqlite3.connect(DATABASE)
+    curs = conn.cursor()
+    curs.execute("SELECT * from Users where id = (?)",[user_id])
+    lu = curs.fetchone()
+    if lu is None:
       return None
-   else:
+    else:
       return User(int(lu[0]), lu[1], lu[2])
 
 @app.route("/login", methods=['GET','POST'])
 def login():
+<<<<<<< HEAD
+=======
+
+>>>>>>> f124dea5c60aa342f2cfcd07b95e8038918319ab
   if current_user.is_authenticated:
-     return redirect(url_for('menu'))
+    return redirect(url_for('menu'))
   form = LoginForm()
+  greeting = get_greeting()
   if form.validate_on_submit():
-     conn = sqlite3.connect(DATABASE)
-     curs = conn.cursor()
-     curs.execute("SELECT * FROM Users where username = (?)",    [form.username.data])
-     user = list(curs.fetchone())
-     Us = load_user(user[0])
-     if form.username.data == Us.username and form.password.data == Us.password:
-        login_user(Us, remember=form.remember.data)
-        list({form.username.data})[0]
-        flash('Logged in successfully ')
-        redirect(url_for('menu'))
-     else:
+    conn = sqlite3.connect(DATABASE)
+    curs = conn.cursor()
+    curs.execute("SELECT * FROM Users where username = (?)",    [form.username.data])
+    user = curs.fetchone()
+    Us = load_user(user[0])
+    if form.username.data == Us.username and form.password.data == Us.password:
+        login_user(Us)
+        return redirect(('menu'))
+    else:
         flash('Login Unsuccessfull.')
+<<<<<<< HEAD
   return render_template('login5.html',title='Login', form=form)
+=======
+    
+  return render_template('login.html',title='Login', form=form, greeting = greeting)
+>>>>>>> f124dea5c60aa342f2cfcd07b95e8038918319ab
 
 
 
 @app.route("/menu", methods=('GET', 'POST'))
 @login_required
 def menu():
+    Today = show_time_in_dutch()
     con = sqlite3.connect(DATABASE)
     cur = con.cursor()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE leerdoel NOT IN (SELECT id FROM leerdoelen)")
     count = cur.fetchone()[0]
-    print(count)
+    
     con.commit()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE vraag LIKE '%<br>%'")
     count2 = cur.fetchone()[0]
-    print(count2)
+    
     con.commit()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE vraag LIKE '%&nbsp;%'")
     count3 = cur.fetchone()[0]
-    print(count3)
+    
     con.commit()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE auteur NOT IN (SELECT id FROM auteurs)")
     count4 = cur.fetchone()[0]
-    print(count4)
+    
     con.commit()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE leerdoel is NULL;")
     count5 = cur.fetchone()[0]
+
     con.commit()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE auteur is NULL;")
     count6 = cur.fetchone()[0]
     con.commit()
-    return render_template ("dashboard.html", count=count, count2=count2, count3=count3,count4=count4, count5=count5, count6=count6)
+    return render_template ("dashboard.html",
+     count=count, count2=count2, count3=count3,
+     count4=count4, count5=count5, count6=count6, Today=Today)
 
 @app.route("/tables")
 @login_required
@@ -126,6 +142,18 @@ def index():
     tables = dbm.get_table_list()
     return render_template(
         "tables.html", table_list=tables, database_file=DATABASE
+    )
+@app.route("/tables/csv_export", methods=('GET', 'POST'))
+@login_required
+def csv():
+    if request.method == 'POST':
+        #csv1 = csv_auteurs()
+        #csv2 = csv_leerdoelen()
+        #csv3 = csv_vragen()
+        return redirect(url_for('menu'), csv1=csv1, csv2=csv2, csv3=csv3)
+
+    return render_template(
+            "tables_export.html"
     )
 
 @app.route("/editor/auteuren", methods=('GET', 'POST'))
@@ -204,6 +232,16 @@ def leerdoelencheck(id):
     leerdoel_1 = cur.fetchone()[0]
     cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 2')
     leerdoel_2 = cur.fetchone()[0]
+    cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 3')
+    leerdoel_3 = cur.fetchone()[0]
+    cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 4')
+    leerdoel_4 = cur.fetchone()[0]
+    cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 5')
+    leerdoel_5 = cur.fetchone()[0]
+    cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 6')
+    leerdoel_6 = cur.fetchone()[0]
+    cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 7')
+    leerdoel_7 = cur.fetchone()[0]
     
     
     cur.execute('SELECT leerdoel FROM vragen WHERE ID = ?', (id,))
@@ -215,7 +253,13 @@ def leerdoelencheck(id):
     con.commit()
     con.close
     
-    return render_template('leerdoeleneditor.html', leerdoel=leerdoel,vraag=vraag, auteur=auteur,leerdoel_1=leerdoel_1,leerdoel_2=leerdoel_2)
+    return render_template(
+        'leerdoeleneditor.html', 
+        leerdoel=leerdoel, vraag=vraag, 
+        auteur=auteur,leerdoel_1=leerdoel_1,
+        leerdoel_2=leerdoel_2,leerdoel_3=leerdoel_3, 
+        leerdoel_4=leerdoel_4, leerdoel_5=leerdoel_5,
+        leerdoel_6=leerdoel_6,leerdoel_7=leerdoel_7)
 
 
 
@@ -341,6 +385,12 @@ def table_content(table_name=None):
 def logout():
     logout_user()
     return redirect("login")
+
+@app.route("/")
+def redirectpage():
+    return redirect("login")
+
+    
 
 
 if __name__ == "__main__":

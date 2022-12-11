@@ -42,12 +42,20 @@
       <a href="/table_details/leerdoelen">Leerdoelen</a>
       <a href="/table_details/vragen">Vragen</a>
     </div>
+  </div>
+    <div class="dropdown">
+      <button class="dropbtn">Exporteren als
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="{{ url_for('csv') }}">CSV</a>
+      </div>
   </div>  
 </div>
 </div>
 </header>
 <section>
-    <h1 class="header">Welcome "{{username}}"</h1>
+    <h1 class="header">Welkom {{ current_user.username }}</h1>
   </section>
   <section> 
     <article>
@@ -125,4 +133,7 @@
     </article>
 </section>
 </body>
+<div id="footer">
+  <p>{{ Today }}</p>
+</div> 
 </html>
