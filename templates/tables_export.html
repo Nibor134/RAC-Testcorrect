@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Database displayer</title>
+    <meta name="description" content="Simple database display"/>
+    <meta name="author" content="Rotterdam Academy"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="/static/basic.css" type="text/css">
+</head>
+<body>
+<main>
+    <form action="/tables/csv_export" method = "POST">
+        <input type="submit" value= {{ csv1 }}>Exporten als CSV>
+    </form>
+    <button><a href="/tables/csv_export"></a></button>
+</main>
+</body>
+</html>
