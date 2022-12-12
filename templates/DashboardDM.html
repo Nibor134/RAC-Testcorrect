@@ -1,0 +1,130 @@
+<!-- Dashboard in Darkmode Test -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Database Dashboard</title>
+    <meta name="description" content="Simple database display"/>
+    <meta name="author" content="Rotterdam Academy"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="/static/basic.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>  
+</style>
+</head>
+<body>
+<header>
+<div class="header">
+    <a href="https://www.test-correct.nl/" class="logo"><img src=https://www.test-correct.nl/hubfs/raw_assets/public/test-correct/images/testcorrect-logo.svg> </a>         
+<div class="header-right">
+<div class="navbar">
+  <a href="{{ url_for('menu') }}">Dashboard</a>
+  <a href="{{ url_for('auteureditor') }}">Auteuren Beheer</a>
+  <a href="{{ url_for('logout') }}">Logout</a>
+  <div class="dropdown">
+    <button class="dropbtn">Editor 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="{{ url_for('htmleditor') }}">HTML Cleaner</a>
+      <a href="{{ url_for('leerdoelen') }}">Leerdoelen check</a>
+      <a href="{{ url_for('auteuren') }}">Auteuren check</a>
+      <a href="{{ url_for('NullornotNullLeer') }}">Lege Leerdoelen</a>
+      <a href="{{ url_for('NullornotNullAu') }}">Lege Auteuren</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Tabellen
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/table_details/auteurs">Auteurs</a>
+      <a href="/table_details/leerdoelen">Leerdoelen</a>
+      <a href="/table_details/vragen">Vragen</a>
+    </div>
+  </div>  
+</div>
+</div>
+</header>
+<section>
+    <h1 class="header">Welcome "{{username}}"</h1>
+  </section>
+  <section> 
+    <article>
+        
+        <canvas id="leerdoelenChart" style="width:100%;max-width:700px" ></canvas>
+        <script METHOD = "GET" > 
+    var xValues = ["Foutieve Leerdoelen", "Foutieve Auteur","Lege Leerdoel","Lege Auteur"];
+    var yValues = ["{{count}}","{{count4}}","{{count5}}","{{count6}}"];
+    var barColors = ["red", "orange","purple","yellow"];
+
+    
+    new Chart("leerdoelenChart", {
+      type: "pie",
+      data: {
+        labels: xValues, 
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        title: {
+              display: true,
+              text: "Foutieve leerdoelen en Auteurs in vragen"
+            },
+        plugins: {   
+                labels: {
+                render: (args) => {
+                  return args.value
+                }
+          }
+        }
+      }
+    }
+  
+);
+
+    </script>
+    </article>
+    <article>
+      <canvas id="HTMLChart" style="width:100%;max-width:700px" ></canvas>
+      <script METHOD = "GET" > 
+        var xValues = ["<br>", "nbsp;"];
+        var yValues = ["{{count2}}","{{count3}}"];
+        var barColors = ["red","orange"];
+    
+        
+        new Chart("HTMLChart", {
+          type: "pie",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: "HTML Fouten"
+            },
+            plugins: {  
+                labels: {
+                render: (args) => {
+                  return  args.value
+                }
+          }
+        }
+      }
+    }
+  
+);
+
+        </script>
+    </article>
+</section>
+</body>
+</html>

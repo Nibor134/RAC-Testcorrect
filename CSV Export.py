@@ -10,7 +10,7 @@ import os.path
 DATABASE = os.path.join('databases', 'testcorrect_vragen.db')
 connection = sqlite3.connect(DATABASE)
 cursor = connection.cursor()
-sqlquery = "SELECT * FROM auteurs"
+sqlquery = "SELECT * FROM Auteurs"
 cursor.execute(sqlquery)
 result = cursor.fetchall()
 for row in result: 
