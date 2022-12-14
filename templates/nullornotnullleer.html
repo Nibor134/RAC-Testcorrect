@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Database displayer</title>
+    <meta name="description" content="Simple database display"/>
+    <meta name="leerdoelen" content="Rotterdam Academy"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="/static/bootstrap.css" type="text/css">
+</head>
+<body>
+<main>
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+                <ul>
+                    <a href="{{ url_for('menu') }}">Dashboard</a>
+                </ul>
+
+                <h2>Controleer <b>Vragen</b> met <b>lege <b> Leerdoelen</b></h2>
+ 
+                {% with messages = get_flashed_messages() %}
+ 
+                {% if messages %}
+ 
+                {% for message in messages %}
+ 
+                <div class="alert alert-success alert-dismissable" role="alert">
+ 
+                    <button type="text" class="close" data-dismiss="alert" aria-label="close">
+ 
+                        <span aria-hidden="true">x</span>
+ 
+                    </button>
+ 
+                {{message}}
+ 
+ 
+                </div>
+ 
+ 
+                {% endfor %}
+ 
+                {% endif %}
+                {% endwith %}
+ 
+                <table class="table table-hover table-light table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+ 
+                        <th>ID</th>
+                        <th>leerdoel</th>
+                        <th>vraag</th>
+                        <th>Action</th>
+ 
+                    </tr>
+                    </thead>
+                   {% for row in rows %}
+                    <tr>
+                        <td>{{row.id}}</td>
+                        <td>{{row.leerdoel}}</td>
+                        <td>{{row.vraag}}</td>                            
+                        <td>
+                            <a href="/editor/leerdoelen/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
+                        
+                        </td>
+                        
+                    </tr>
+            {% endfor %}
+                    
+        </div>
+</main>
+</body>
+
+</html>

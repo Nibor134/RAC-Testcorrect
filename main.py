@@ -353,7 +353,7 @@ def NullornotNullLeer():
     cur = con.cursor()  
     cur.execute("SELECT * FROM vragen WHERE leerdoel is NULL;")  
     rows = cur.fetchall()  
-    return render_template("NullornotNull.html",rows = rows)
+    return render_template("NullornotNullleer.html",rows = rows)
 
 @app.route("/editor/NullorNotnullAu", methods=('GET', 'POST'))
 @login_required
