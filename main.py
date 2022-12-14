@@ -3,7 +3,6 @@ import sys
 import sqlite3
 #import pandas as pd 
 import os.path
-import sqlite3
 import datetime
 from flask import Flask
 from flask import render_template, url_for, flash, request, redirect, Response, send_file
@@ -90,7 +89,7 @@ def login():
         return redirect(('menu'))
     else:
         flash('Login Unsuccessfull.')
-  return render_template('login5.html',title='Login', form=form)
+  return render_template('login.html',title='Login', form=form,greeting=greeting)
 
 
 
