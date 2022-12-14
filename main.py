@@ -90,7 +90,7 @@ def login():
         return redirect(('menu'))
     else:
         flash('Login Unsuccessfull.')
-  return render_template('login.html',title='Login', form=form, greeting=greeting)
+  return render_template('login5.html',title='Login', form=form)
 
 
 
@@ -347,6 +347,7 @@ def updateauteurs(id):
 
 @app.route("/editor/NullorNotnullLeer", methods=('GET', 'POST'))
 def NullornotNullLeer():
+    
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
     cur = con.cursor()  
