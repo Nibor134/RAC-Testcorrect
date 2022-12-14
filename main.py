@@ -75,10 +75,6 @@ def load_user(user_id):
 
 @app.route("/login", methods=['GET','POST'])
 def login():
-<<<<<<< HEAD
-=======
-
->>>>>>> f124dea5c60aa342f2cfcd07b95e8038918319ab
   if current_user.is_authenticated:
     return redirect(url_for('menu'))
   form = LoginForm()
@@ -94,12 +90,7 @@ def login():
         return redirect(('menu'))
     else:
         flash('Login Unsuccessfull.')
-<<<<<<< HEAD
   return render_template('login5.html',title='Login', form=form)
-=======
-    
-  return render_template('login.html',title='Login', form=form, greeting = greeting)
->>>>>>> f124dea5c60aa342f2cfcd07b95e8038918319ab
 
 
 
@@ -349,6 +340,7 @@ def updateauteurs(id):
 
 @app.route("/editor/NullorNotnullLeer", methods=('GET', 'POST'))
 def NullornotNullLeer():
+    
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
     cur = con.cursor()  
