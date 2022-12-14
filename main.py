@@ -6,7 +6,7 @@ import os.path
 import sqlite3
 import datetime
 from flask import Flask
-from flask import render_template, url_for, flash, request, redirect, Response
+from flask import render_template, url_for, flash, request, redirect, Response, send_file
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
@@ -134,18 +134,24 @@ def index():
     return render_template(
         "tables.html", table_list=tables, database_file=DATABASE
     )
-@app.route("/tables/csv_export", methods=('GET', 'POST'))
-@login_required
-def csv():
-    if request.method == 'POST':
-        #csv1 = csv_auteurs()
-        #csv2 = csv_leerdoelen()
-        #csv3 = csv_vragen()
-        return redirect(url_for('menu'), csv1=csv1, csv2=csv2, csv3=csv3)
 
-    return render_template(
-            "tables_export.html"
-    )
+@app.route("/Download#1", methods=('GET', 'POST'))
+@login_required
+def csv_auteuren():
+        #csv_auteurs()
+        return send_file('Export/output_auteurs.csv', mimetype='text/csv')
+
+@app.route("/Download#2", methods=('GET', 'POST'))
+@login_required
+def csv_leerdoel():
+        #csv_leerdoelen()
+        return send_file('Export/output_leerdoelen.csv', mimetype='text/csv')
+
+@app.route("/Download", methods=('GET', 'POST'))
+@login_required
+def csv_vraag():
+        #csv_vragen()
+        return send_file('Export/output_vragen.csv', mimetype='text/csv')
 
 @app.route("/editor/auteuren", methods=('GET', 'POST'))
 @login_required

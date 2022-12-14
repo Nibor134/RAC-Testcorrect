@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login</title>
-  <link rel="stylesheet" href="/static/bulma.css">
+  <link rel="stylesheet" href="/static/bootstrap.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
 <body>
@@ -12,8 +12,8 @@
   <section class="hero is-info is-fullheight">
     <div class="hero-body">
       <div class="container">
-        
-        <header><img style="display: block; margin-left: auto; margin-right: auto;" src="https://www.test-correct.nl/hubfs/raw_assets/public/test-correct/images/testcorrect-logo.svg" alt="" /></header>   
+       
+        <img style="display: block; margin-left: auto; margin-right: auto;" src="https://www.test-correct.nl/hubfs/raw_assets/public/test-correct/images/testcorrect-logo.svg" alt="" />   
         
         <div class="columns is-centered">
           
@@ -22,7 +22,8 @@
               
               <div class="columns is-centered" >
                 <div class="column is-half" style="display: block; margin-left: auto; margin-right: auto;">
-                  <h1 class="header"> {{ greeting }}, Log alstublieft in om het systeem te gebruiken. </h1>  
+                  <h1>{{ greeting }}!</h1>
+                  <header>Log alstublieft in om het systeem te gebruiken. </header>  
                   {{ form.hidden_tag() }}
                 <p>
                   <div class="field">   
