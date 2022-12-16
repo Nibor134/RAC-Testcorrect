@@ -16,11 +16,12 @@
 
 @media (prefers-color-scheme: dark) {
 	:root {
+    --c1:#092088;
     --c2:#333;
     --c3:#1e1f20;
     --c4:#fff;
-	}
-}
+	} 
+} 
 
 html {
     -ms-text-size-adjust: 100%;
@@ -40,6 +41,18 @@ body {
     background-color: var(--c3);
     color: var(--c4);
 }
+
+/* Darkmode toggle */
+/*
+darkmode:checked,
+darkmode:checked ~ body{
+  --c1:#ce1212;
+  --c2:rgb(0, 0, 0);
+  --c3:rgb(4, 4, 4);
+  --c4:rgb(255, 255, 255);
+  --c5:rgb(6, 6, 6);
+} */
+
 img, iframe {border: none; max-width: 100%}
 
 a {color: var(--c1);  text-decoration:none}
@@ -161,7 +174,7 @@ section>section {
 /* Style the header with a grey background and some padding */
 .header {
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: var(--c3);
   padding: 20px 10px;
 }
 
@@ -198,7 +211,7 @@ section>section {
 /* Float the link section to the right */
 .header-right {
   float: right;
-  background-color: #f1f1f1;
+  background-color: var(--c3);
   padding: 29px 10px;
 }
 
