@@ -20,7 +20,6 @@
 <div class="navbar">
   <a href="{{ url_for('menu') }}">Dashboard</a>
   <a href="{{ url_for('auteureditor') }}">Auteuren Beheer</a>
-  <a href="{{ url_for('logout') }}">Logout</a>
   <div class="dropdown">
     <button class="dropbtn">Editor 
       <i class="fa fa-caret-down"></i>
@@ -52,6 +51,8 @@
         <a href="{{ url_for('csv_leerdoel') }}">Leerdoelen CSV</a>
         <a href="{{ url_for('csv_vraag') }}">Vragen CSV</a>
       </div>
+  </div>  
+  <a href="{{ url_for('logout') }}">Logout</a>
   </div>  
 </div>
 </div>

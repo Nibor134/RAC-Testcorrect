@@ -3,7 +3,6 @@ import sys
 import sqlite3
 #import pandas as pd 
 import os.path
-import sqlite3
 import datetime
 from flask import Flask
 from flask import render_template, url_for, flash, request, redirect, Response, send_file
@@ -90,7 +89,7 @@ def login():
         return redirect(('menu'))
     else:
         flash('Login Unsuccessfull.')
-  return render_template('login5.html',title='Login', form=form)
+  return render_template('login.html',title='Login', form=form,greeting=greeting)
 
 
 
@@ -185,11 +184,12 @@ def auteurencheck(id):
     vraag = cur.fetchone()[0]
     cur.execute('SELECT auteur FROM vragen WHERE ID = ?', (id,))
     auteur = cur.fetchone()[0]
+    cur.execute('SELECT voornaam, achternaam FROM auteurs WHERE id = ?',(id,))
+    namen = cur.fetchmany()[0]
     con.commit()
     con.close
     
-    return render_template('auteureneditor.html', vraag=vraag, auteur=auteur)
-
+    return render_template('auteureneditor.html', vraag=vraag, auteur=auteur,namen=namen)
 
 
 
@@ -340,18 +340,19 @@ def updateauteurs(id):
     metpensioen = cur.fetchone()[0]
     con.commit()
     con.close
-    #
+    
     return render_template('Auteurupdate.html', voornamen=voornamen,achternaam=achternaam, geboortejaar=geboortejaar, medewerker=medewerker,metpensioen=metpensioen)
-1
+
 
 @app.route("/editor/NullorNotnullLeer", methods=('GET', 'POST'))
 def NullornotNullLeer():
+    
     con = sqlite3.connect(DATABASE)  
     con.row_factory = sqlite3.Row  
     cur = con.cursor()  
     cur.execute("SELECT * FROM vragen WHERE leerdoel is NULL;")  
     rows = cur.fetchall()  
-    return render_template("NullornotNull.html",rows = rows)
+    return render_template("NullornotNullleer.html",rows = rows)
 
 @app.route("/editor/NullorNotnullAu", methods=('GET', 'POST'))
 @login_required
@@ -362,8 +363,6 @@ def NullornotNullAu():
     cur.execute("SELECT * FROM vragen WHERE auteur is NULL;")  
     rows = cur.fetchall()  
     return render_template("NullornotNull.html",rows = rows)
-
-
 
 
 # The table route displays the content of a table
@@ -386,8 +385,6 @@ def logout():
 @app.route("/")
 def redirectpage():
     return redirect("login")
-
-    
 
 
 if __name__ == "__main__":
