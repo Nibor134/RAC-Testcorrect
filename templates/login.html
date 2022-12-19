@@ -17,7 +17,6 @@
 <body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
   <header class="max-w-lg mx-auto">
     <section> 
-      <img style="display: block; margin-left: auto; margin-right: auto;" src="https://welcome.test-correct.nl/svg/logos/Logo-Test-Correct-2.svg" alt="" />  
       </section>
           <h1 class="text-4xl font-bold text-white text-center">{{ greeting }}!</h1>
           
@@ -36,8 +35,8 @@
                   {{ form.hidden_tag() }}
                 <p>
                   <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="username">{{ form.username.label }}</label>
-                  <div class="mb-6 pt-3 rounded bg-gray-200"> 
-                  <input type="text" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-600 transition duration-500 px-3 pb-3"placeholder="Username" name="username" value="{{
+                  <div class="mb-6 pt-3 rounded bg-blue-200"> 
+                  <input type="text" class="bg-blue-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-white focus:border-blue-600 transition duration-500 px-3 pb-3"placeholder="Username" name="username" value="{{
                       request.form.username }}">
                     
                   
@@ -47,22 +46,18 @@
                 </p>
                   </div>
                   <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="password">{{ form.password.label }}</label>
-                  <div class="mb-6 pt-3 rounded bg-gray-200">   
+                  <div class="mb-6 pt-3 rounded bg-blue-200">   
                 <p>                  
-                  <input type="password" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-600 transition duration-500 px-3 pb-3" 
+                  <input type="password" class="bg-blue-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-white focus:border-blue-600 transition duration-500 px-3 pb-3" 
                   placeholder="Password" name="password" value="{{ request.form.password }}">
                     {% for error in form.password.errors %}
                     <span style="color: red;">[{{ error }}]</span>
                     {% endfor %}
                 </p>
                 </div>
-                <section class="mt-10">
-                  <button class="bg-green-300 hover:bg-green-300 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">{{ form.submit }}</button>
-                  
-                    <div class="field">
-                      <p class="control">
-                            
-                        </p>
+                <section class="mt-12">
+                  <button class="bg-green-400 hover:bg-green-400 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">Log In</button>
+                
               </div>
               </section>
             </p>
@@ -73,4 +68,10 @@
   </section>
 </main> 
 </body>
+<footer class="p-4 bg-transparent text-center sm:p-6 dark:bg-gray-800">
+  <p>{{ Today }}</p>
+  &nbsp;
+  <img style="display: block; margin-left: auto; margin-right: auto;" src="https://welcome.test-correct.nl/svg/logos/Logo-Test-Correct-2.svg" alt="" />  
+
+</footer>
 </html>
