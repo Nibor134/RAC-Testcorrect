@@ -101,30 +101,44 @@ def menu():
     cur = con.cursor()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE leerdoel NOT IN (SELECT id FROM leerdoelen)")
     count = cur.fetchone()[0]
-    
     con.commit()
+
     cur.execute("SELECT COUNT (*) FROM vragen WHERE vraag LIKE '%<br>%'")
     count2 = cur.fetchone()[0]
-    
     con.commit()
+
     cur.execute("SELECT COUNT (*) FROM vragen WHERE vraag LIKE '%&nbsp;%'")
     count3 = cur.fetchone()[0]
-    
     con.commit()
+
     cur.execute("SELECT COUNT (*) FROM vragen WHERE auteur NOT IN (SELECT id FROM auteurs)")
     count4 = cur.fetchone()[0]
-    
     con.commit()
+
     cur.execute("SELECT COUNT (*) FROM vragen WHERE leerdoel is NULL;")
     count5 = cur.fetchone()[0]
-
     con.commit()
+
     cur.execute("SELECT COUNT (*) FROM vragen WHERE auteur is NULL;")
     count6 = cur.fetchone()[0]
     con.commit()
-    return render_template ("dashboard.html",
+
+    cur.execute("SELECT COUNT (*) FROM vragen ")
+    countvragen = cur.fetchone()[0]
+    con.commit()
+
+    cur.execute("SELECT COUNT (*) FROM auteurs ")
+    countauteurs = cur.fetchone()[0]
+    con.commit()
+
+    cur.execute("SELECT COUNT (*) FROM leerdoelen ")
+    countleerdoelen = cur.fetchone()[0]
+    con.commit()
+
+
+    return render_template ("admindash.html",
      count=count, count2=count2, count3=count3,
-     count4=count4, count5=count5, count6=count6, Today=Today)
+     count4=count4, count5=count5, count6=count6, Today=Today, countvragen=countvragen, countleerdoelen=countleerdoelen, countauteurs=countauteurs)
 
 @app.route("/tables")
 @login_required
