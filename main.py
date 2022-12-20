@@ -151,19 +151,19 @@ def index():
 @app.route("/Download#1", methods=('GET', 'POST'))
 @login_required
 def csv_auteuren():
-        #csv_auteurs()
+        
         return send_file('Export/output_auteurs.csv', mimetype='text/csv')
 
 @app.route("/Download#2", methods=('GET', 'POST'))
 @login_required
 def csv_leerdoel():
-        #csv_leerdoelen()
+        
         return send_file('Export/output_leerdoelen.csv', mimetype='text/csv')
 
 @app.route("/Download", methods=('GET', 'POST'))
 @login_required
 def csv_vraag():
-        #csv_vragen()
+        
         return send_file('Export/output_vragen.csv', mimetype='text/csv')
 
 @app.route("/editor/auteuren", methods=('GET', 'POST'))
