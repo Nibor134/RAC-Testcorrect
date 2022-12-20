@@ -23,10 +23,7 @@
         <form action="updateauteuren/{{auteur}}" METHOD="POST">
             
             <textarea class = "inputClass" name="vraag" style='width:100%;height:200px'>{{vraag}}</textarea>
-            <section>
           <section><tr>Auteur&nbsp;&nbsp;</tr><input type="text" placeholder="auteur" name="auteur" size="50" value = "{{auteur}}"></section>
-          <section><tr>Naam&nbsp;&nbsp;</tr><input type="text" placeholder="auteur" name="auteur" size="50" value = "{{namen}}"></section>
-
           </tr>
           
         </section>
@@ -36,8 +33,28 @@
     <div> 
         <tr> 
             <button class="btn btn-primary" type="submit">Update</button>
+            <a href="{{ url_for('menu') }}">Terug naar Dashboard</a>
          </tr> 
         </form>
     </table>
+    
+    <table class="table table-hover table-light table-bordered">
+        <thead class="thead-dark">
+        <tr>
+
+            <th>ID</th>
+            <th>voornaam</th>
+            <th>Achternaam</th>
+            <th>Geboortejaar</th>
+        </tr>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                {% for field in row %}
+                <td>{{ field }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
 </div>
 </main>  

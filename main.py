@@ -180,6 +180,7 @@ def auteuren():
 @login_required
 def auteurencheck(id):
     con = sqlite3.connect(DATABASE)
+    con.row_factory = sqlite3.Row
     cur = con.cursor()
     if request.method == 'POST':
 
@@ -198,12 +199,12 @@ def auteurencheck(id):
     vraag = cur.fetchone()[0]
     cur.execute('SELECT auteur FROM vragen WHERE ID = ?', (id,))
     auteur = cur.fetchone()[0]
-    cur.execute('SELECT voornaam, achternaam FROM auteurs WHERE id = ?',(id,))
-    namen = cur.fetchmany()[0]
+    cur.execute('SELECT ID, voornaam, achternaam, geboortejaar FROM auteurs')
+    rows = cur.fetchall()
     con.commit()
     con.close
     
-    return render_template('auteureneditor.html', id=id, vraag=vraag, auteur=auteur,namen=namen)
+    return render_template('auteureneditor.html', id=id, vraag=vraag, auteur=auteur, rows = rows)
 
 
 
@@ -280,7 +281,7 @@ def htmleditor():
     cur = con.cursor()
     cur.execute("SELECT * FROM vragen WHERE vraag LIKE '%<br>%' OR vraag LIKE '%&nbsp;%'")  
     rows = cur.fetchall()  
-    return render_template("Testsearchbar.html",rows = rows)
+    return render_template("HTMLeditor.html",rows = rows)
 
 
 @app.route("/editor/htmlcleaner/update/<int:id>", methods = ['GET','POST'])

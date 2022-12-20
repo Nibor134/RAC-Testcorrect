@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+<head>
+    <title>Search</title>
+</head>
+<body>
+    <h1>Search</h1>
+    <form method="POST">
+        {{ form.csrf_token }}
+        {{ form.search_query }}
+        {{ form.submit }}
+    </form>
+</body>
+</html>

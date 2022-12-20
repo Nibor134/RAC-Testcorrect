@@ -7,41 +7,28 @@
     <meta name="author" content="Rotterdam Academy"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="/static/basic.css" type="text/css">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        .body-bg {
-            background-color: #00f7ff;
-            background-image: linear-gradient(330deg, #69f6b4 0%, #5fbe7b 74%);
-        }
-    </style>
 </head>
-<body class="body-bg min-h-screen overflow-hidden flex items-center justify-center">
-
+<body>
 <main>
-    <header>
-    <a class="hover:shadow-form rounded-md py-8 text-center items-center" href="https://www.test-correct.nl/?vraag={{ id }}">Meer informatie over vraag</a>
+    <div class="container"><header>
         <h1>Update vragen</h1>
+        <a href="https://www.test-correct.nl/?vraag={{ id }}">Meer informatie over vraag</a>
         <br/>
         <td>Vraag</td>
     </header>
         <form action='' method = "POST">
         <table class="table">
         <tr>
-            <div class="-mx-3 flex flex-wrap">
-                <div class="w-full px-3 sm:w-1/2">
-                  <div class="mb-5">
         <form action="update/{{vragen}}" METHOD="POST">
-            <textarea name="vraag" style='width:100%;height:200px'>{{vragen}}</textarea>
-            <section>        </tr>
+          <input type="text" placeholder="Vraag" name="vraag" style='width:100%;height:200px' value = "{{vragen}}">
+        </tr>
     </div>
     <div> 
-        <button class="hover:shadow-form rounded-md py-3 px-4 text-center items-center bg-blue-600 text-base font-semibold text-black outline-none"
-        type="submit">Update</button>
-     </tr> 
-     <a class="hover:shadow-form rounded-md py-3 px-4 text-center items-center text-base font-semibold text-black outline-none" href="{{ url_for('menu') }}">Terug naar Dashboard</a>
+        <tr> 
+            <button class="btn btn-primary" type="submit">Update</button>
+            <a href="{{ url_for('menu') }}">Terug naar Dashboard</a>
+         </tr> 
         </form>
     </table>
 </div>
 </main>  
-</body>
-</html>
