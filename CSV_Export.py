@@ -39,4 +39,4 @@ def csv_vragen():
     for row in result: 
         df = pd.read_sql_query(sqlquery,connection)
         df.to_csv('Export/output_vragen.CSV', index = False)
-
+    

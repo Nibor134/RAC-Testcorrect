@@ -13,15 +13,15 @@
     <div class="container"><header>
         <h1>Update Leerdoelen</h1>
         <br/>
+    <a href="https://www.test-correct.nl/?vraag={{ id }}">Meer informatie over vraag</a>
+    
     </header>
         <form action='' method = "POST">
         <table class="table">
         <tr>
         <form action="updateleerdoelen/{{leerdoelen}}" METHOD="POST">
-          
-          <section><tr>Vraag&nbsp;&nbsp;&nbsp;&nbsp;</tr><input type="text" placeholder="vraag" name="vraag" style='width:100%' value = "{{vraag}}"></section>
-          &nbsp;&nbsp;&nbsp;
-          <section>
+            <textarea class = "inputClass" name="vraag" style='width:100%;height:200px'>{{vraag}}</textarea>
+            <section>
             <label for="leerdoel">leerdoel&nbsp;&nbsp;&nbsp;</label>
 
                 <select name="leerdoel" id="vragen">
@@ -42,6 +42,7 @@
         <section>
         <tr> 
             <button class="btn btn-primary" type="submit">Update</button>
+            <a href="{{ url_for('menu') }}">Terug naar Dashboard</a>
          </tr> 
         </form>
 </section>

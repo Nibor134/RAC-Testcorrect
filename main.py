@@ -101,30 +101,44 @@ def menu():
     cur = con.cursor()
     cur.execute("SELECT COUNT (*) FROM vragen WHERE leerdoel NOT IN (SELECT id FROM leerdoelen)")
     count = cur.fetchone()[0]
-    
     con.commit()
+
     cur.execute("SELECT COUNT (*) FROM vragen WHERE vraag LIKE '%<br>%'")
     count2 = cur.fetchone()[0]
-    
     con.commit()
+
     cur.execute("SELECT COUNT (*) FROM vragen WHERE vraag LIKE '%&nbsp;%'")
     count3 = cur.fetchone()[0]
-    
     con.commit()
+
     cur.execute("SELECT COUNT (*) FROM vragen WHERE auteur NOT IN (SELECT id FROM auteurs)")
     count4 = cur.fetchone()[0]
-    
     con.commit()
+
     cur.execute("SELECT COUNT (*) FROM vragen WHERE leerdoel is NULL;")
     count5 = cur.fetchone()[0]
-
     con.commit()
+
     cur.execute("SELECT COUNT (*) FROM vragen WHERE auteur is NULL;")
     count6 = cur.fetchone()[0]
     con.commit()
-    return render_template ("dashboard.html",
+
+    cur.execute("SELECT COUNT (*) FROM vragen ")
+    countvragen = cur.fetchone()[0]
+    con.commit()
+
+    cur.execute("SELECT COUNT (*) FROM auteurs ")
+    countauteurs = cur.fetchone()[0]
+    con.commit()
+
+    cur.execute("SELECT COUNT (*) FROM leerdoelen ")
+    countleerdoelen = cur.fetchone()[0]
+    con.commit()
+
+
+    return render_template ("admindash.html",
      count=count, count2=count2, count3=count3,
-     count4=count4, count5=count5, count6=count6, Today=Today)
+     count4=count4, count5=count5, count6=count6, Today=Today, countvragen=countvragen, countleerdoelen=countleerdoelen, countauteurs=countauteurs)
 
 @app.route("/tables")
 @login_required
@@ -137,19 +151,19 @@ def index():
 @app.route("/Download#1", methods=('GET', 'POST'))
 @login_required
 def csv_auteuren():
-        #csv_auteurs()
+        
         return send_file('Export/output_auteurs.csv', mimetype='text/csv')
 
 @app.route("/Download#2", methods=('GET', 'POST'))
 @login_required
 def csv_leerdoel():
-        #csv_leerdoelen()
+        
         return send_file('Export/output_leerdoelen.csv', mimetype='text/csv')
 
 @app.route("/Download", methods=('GET', 'POST'))
 @login_required
 def csv_vraag():
-        #csv_vragen()
+        
         return send_file('Export/output_vragen.csv', mimetype='text/csv')
 
 @app.route("/editor/auteuren", methods=('GET', 'POST'))
@@ -166,6 +180,7 @@ def auteuren():
 @login_required
 def auteurencheck(id):
     con = sqlite3.connect(DATABASE)
+    con.row_factory = sqlite3.Row
     cur = con.cursor()
     if request.method == 'POST':
 
@@ -184,12 +199,12 @@ def auteurencheck(id):
     vraag = cur.fetchone()[0]
     cur.execute('SELECT auteur FROM vragen WHERE ID = ?', (id,))
     auteur = cur.fetchone()[0]
-    cur.execute('SELECT voornaam, achternaam FROM auteurs WHERE id = ?',(id,))
-    namen = cur.fetchmany()[0]
+    cur.execute('SELECT ID, voornaam, achternaam, geboortejaar FROM auteurs')
+    rows = cur.fetchall()
     con.commit()
     con.close
     
-    return render_template('auteureneditor.html', vraag=vraag, auteur=auteur,namen=namen)
+    return render_template('auteureneditor.html', id=id, vraag=vraag, auteur=auteur, rows = rows)
 
 
 
@@ -203,6 +218,7 @@ def leerdoelen():
     rows = cur.fetchall()
     return render_template("leerdoelen.html", rows = rows)
 
+
 @app.route("/editor/leerdoelen/update/<int:id>", methods = ['GET','POST'])
 @login_required
 def leerdoelencheck(id):
@@ -211,18 +227,17 @@ def leerdoelencheck(id):
     if request.method == 'POST':
 
         vragen_id =                              id
-        leerdoel         =               request.form['leerdoel']
-        vraag      =               request.form['vraag']
-        auteur    =               request.form['auteur']
+        leerdoel            =               request.form['leerdoel']
+        vraag               =               request.form['vraag']
+        auteur              =               request.form['auteur']
         
         cur.execute("UPDATE vragen SET leerdoel = ? WHERE id = ?",(leerdoel, vragen_id))
         cur.execute("UPDATE vragen SET vraag = ? WHERE id = ?",(vraag, vragen_id))
         cur.execute("UPDATE vragen SET auteur = ? WHERE id = ?",(auteur, vragen_id))
         con.commit()
         flash("Vraag succesvol aangepast")  
-        return redirect(url_for('leerdoelen'))
+        return redirect(url_for('leerdoelen'),)
 
-    
     
     #Leerdoelen
     cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 1')
@@ -252,13 +267,11 @@ def leerdoelencheck(id):
     
     return render_template(
         'leerdoeleneditor.html', 
-        leerdoel=leerdoel, vraag=vraag, 
+        leerdoel=leerdoel, id=id, vraag=vraag, 
         auteur=auteur,leerdoel_1=leerdoel_1,
         leerdoel_2=leerdoel_2,leerdoel_3=leerdoel_3, 
         leerdoel_4=leerdoel_4, leerdoel_5=leerdoel_5,
         leerdoel_6=leerdoel_6,leerdoel_7=leerdoel_7)
-
-
 
 @app.route("/editor/cleaner/")
 @login_required
@@ -268,7 +281,7 @@ def htmleditor():
     cur = con.cursor()
     cur.execute("SELECT * FROM vragen WHERE vraag LIKE '%<br>%' OR vraag LIKE '%&nbsp;%'")  
     rows = cur.fetchall()  
-    return render_template("Testsearchbar.html",rows = rows)
+    return render_template("HTMLeditor.html",rows = rows)
 
 
 @app.route("/editor/htmlcleaner/update/<int:id>", methods = ['GET','POST'])
@@ -286,13 +299,13 @@ def update(id):
         con.commit()
         flash("Vraag succesvol aangepast")  
         return redirect(url_for('htmleditor'))
-
+    
     cur.execute('SELECT vraag FROM vragen WHERE ID = ?', (id,))
     vragen = cur.fetchone()[0]
     con.commit()
     con.close
 
-    return render_template('HTMLupdate.html', vragen=vragen)
+    return render_template('HTMLupdate.html', id=id, vragen=vragen)
 
 @app.route("/editor/auteurs", methods=('GET', 'POST'))
 @login_required
@@ -362,7 +375,7 @@ def NullornotNullAu():
     cur = con.cursor()  
     cur.execute("SELECT * FROM vragen WHERE auteur is NULL;")  
     rows = cur.fetchall()  
-    return render_template("NullornotNull.html",rows = rows)
+    return render_template("NullornotNullAu.html",rows = rows)
 
 
 # The table route displays the content of a table

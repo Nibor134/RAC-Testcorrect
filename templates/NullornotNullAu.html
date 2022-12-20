@@ -15,10 +15,10 @@
         <div class="col md-12">
             <div class="jumbotron p-3">
                 <ul>
-                    <a href="{{ url_for('menu') }}">Terug naar dashboard</a>
+                    <a href="{{ url_for('menu') }}">Dashboard</a>
                 </ul>
 
-                <h2>Controleer <b>Auteuren</b> met <b>Vragen</b></h2>
+                <h2>Controleer <b>Vragen</b> met <b>lege <b> Leerdoelen</b></h2>
  
                 {% with messages = get_flashed_messages() %}
  
@@ -52,6 +52,7 @@
                         <th>ID</th>
                         <th>Auteur</th>
                         <th>vraag</th>
+                        
                         <th>Action</th>
  
                     </tr>
@@ -60,7 +61,8 @@
                     <tr>
                         <td>{{row.id}}</td>
                         <td>{{row.auteur}}</td>
-                        <td>{{row.vraag}}</td>                             
+                        <td>{{row.vraag}}</td>
+                                                    
                         <td>
                             <a href="/editor/auteuren/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edit</a>
                         

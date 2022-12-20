@@ -12,37 +12,23 @@
 <main>
     <div class="container"><header>
         <h1>Update vragen</h1>
+        <a href="https://www.test-correct.nl/?vraag={{ id }}">Meer informatie over vraag</a>
         <br/>
         <td>Vraag</td>
     </header>
         <form action='' method = "POST">
         <table class="table">
         <tr>
-       
         <form action="update/{{vragen}}" METHOD="POST">
-          <input type="text" placeholder="Vraag" name="vraag" size="125" value = "{{vragen}}">
+          <input type="text" placeholder="Vraag" name="vraag" style='width:100%;height:200px' value = "{{vragen}}">
         </tr>
     </div>
     <div> 
         <tr> 
             <button class="btn btn-primary" type="submit">Update</button>
+            <a href="{{ url_for('menu') }}">Terug naar Dashboard</a>
          </tr> 
         </form>
     </table>
 </div>
 </main>  
-
-<script>
-    var regex = /(<br>|&nbsp;)/g;
-    var regex = /(apples|oranges)/g;
-    
-    $('body a, body p').each(function() {
-        var $vragem = $(this);
-        var text = $vragen.text();
-        if (text.match(regex) && $vragen.children().length===0) {
-            $vragen.html(
-                $vragen.html().replace(regex, '<span style="background: #FFFF00;">$1</span>')
-            );
-        }
-    });
-    </script>
