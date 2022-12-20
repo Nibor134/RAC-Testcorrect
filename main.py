@@ -235,10 +235,9 @@ def leerdoelencheck(id):
         cur.execute("UPDATE vragen SET auteur = ? WHERE id = ?",(auteur, vragen_id))
         con.commit()
         flash("Vraag succesvol aangepast")  
-        return redirect(url_for('leerdoelen'))
+        return redirect(url_for('leerdoelen'),)
 
     
-    print(id)
     #Leerdoelen
     cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 1')
     leerdoel_1 = cur.fetchone()[0]
@@ -267,7 +266,7 @@ def leerdoelencheck(id):
     
     return render_template(
         'leerdoeleneditor.html', 
-        leerdoel=leerdoel, vraag=vraag, 
+        leerdoel=leerdoel, id=id, vraag=vraag, 
         auteur=auteur,leerdoel_1=leerdoel_1,
         leerdoel_2=leerdoel_2,leerdoel_3=leerdoel_3, 
         leerdoel_4=leerdoel_4, leerdoel_5=leerdoel_5,
