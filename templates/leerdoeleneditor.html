@@ -18,10 +18,8 @@
         <table class="table">
         <tr>
         <form action="updateleerdoelen/{{leerdoelen}}" METHOD="POST">
-          
-          <section><tr>Vraag&nbsp;&nbsp;&nbsp;&nbsp;</tr><input type="text" placeholder="vraag" name="vraag" style='width:100%' value = "{{vraag}}"></section>
-          &nbsp;&nbsp;&nbsp;
-          <section>
+            <textarea class = "inputClass" name="vraag" style='width:100%;height:200px'>{{vraag}}</textarea>
+            <section>
             <label for="leerdoel">leerdoel&nbsp;&nbsp;&nbsp;</label>
 
                 <select name="leerdoel" id="vragen">

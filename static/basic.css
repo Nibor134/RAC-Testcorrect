@@ -670,3 +670,20 @@ ul {
   margin-right: auto;
   font-size: 25px;
 }
+
+#textboxid
+{
+    height:200px;
+    font-size:14pt;
+    width:800px;
+    vertical-align: top;
+    text-align: left;
+}
+
+textarea {
+  resize: none;
+}
+
+.inputClass {
+    pointer-events: none; 
+}

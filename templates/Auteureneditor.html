@@ -6,7 +6,7 @@
     <meta name="description" content="Simple database display"/>
     <meta name="author" content="Rotterdam Academy"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="/static/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="/static/basic.css" type="text/css">
 </head>
 <body>
 <main>
@@ -20,7 +20,8 @@
         <tr>
         <form action="updateauteuren/{{auteur}}" METHOD="POST">
             
-          <textarea name="vraag" style='width:100%;height:200px'>{{vraag}}</textarea>
+            <textarea class = "inputClass" name="vraag" style='width:100%;height:200px'>{{vraag}}</textarea>
+            <section>
           <section><tr>Auteur&nbsp;&nbsp;</tr><input type="text" placeholder="auteur" name="auteur" size="50" value = "{{auteur}}"></section>
           <section><tr>Naam&nbsp;&nbsp;</tr><input type="text" placeholder="auteur" name="auteur" size="50" value = "{{namen}}"></section>
 
