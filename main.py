@@ -217,6 +217,7 @@ def leerdoelen():
     rows = cur.fetchall()
     return render_template("leerdoelen.html", rows = rows)
 
+
 @app.route("/editor/leerdoelen/update/<int:id>", methods = ['GET','POST'])
 @login_required
 def leerdoelencheck(id):
@@ -225,9 +226,9 @@ def leerdoelencheck(id):
     if request.method == 'POST':
 
         vragen_id =                              id
-        leerdoel         =               request.form['leerdoel']
-        vraag      =               request.form['vraag']
-        auteur    =               request.form['auteur']
+        leerdoel            =               request.form['leerdoel']
+        vraag               =               request.form['vraag']
+        auteur              =               request.form['auteur']
         
         cur.execute("UPDATE vragen SET leerdoel = ? WHERE id = ?",(leerdoel, vragen_id))
         cur.execute("UPDATE vragen SET vraag = ? WHERE id = ?",(vraag, vragen_id))
@@ -237,7 +238,7 @@ def leerdoelencheck(id):
         return redirect(url_for('leerdoelen'))
 
     
-    
+    print(id)
     #Leerdoelen
     cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 1')
     leerdoel_1 = cur.fetchone()[0]
@@ -300,7 +301,7 @@ def update(id):
         con.commit()
         flash("Vraag succesvol aangepast")  
         return redirect(url_for('htmleditor'))
-
+    
     cur.execute('SELECT vraag FROM vragen WHERE ID = ?', (id,))
     vragen = cur.fetchone()[0]
     con.commit()
