@@ -375,7 +375,7 @@ def NullornotNullAu():
     cur = con.cursor()  
     cur.execute("SELECT * FROM vragen WHERE auteur is NULL;")  
     rows = cur.fetchall()  
-    return render_template("NullornotNull.html",rows = rows)
+    return render_template("NullornotNullAu.html",rows = rows)
 
 
 # The table route displays the content of a table
