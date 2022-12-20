@@ -7,10 +7,19 @@
     <meta name="author" content="Rotterdam Academy"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="/static/basic.css" type="text/css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .body-bg {
+            background-color: #00f7ff;
+            background-image: linear-gradient(330deg, #69f6b4 0%, #5fbe7b 74%);
+        }
+    </style>
 </head>
-<body>
+<body class="body-bg min-h-screen overflow-hidden flex items-center justify-center">
+
 <main>
-    <div class="container"><header>
+    <header>
+    <a class="hover:shadow-form rounded-md py-8 text-center items-center" href="https://www.test-correct.nl/?vraag={{ id }}">Meer informatie over vraag</a>
         <h1>Update vragen</h1>
         <br/>
         <td>Vraag</td>
@@ -18,31 +27,21 @@
         <form action='' method = "POST">
         <table class="table">
         <tr>
-       
+            <div class="-mx-3 flex flex-wrap">
+                <div class="w-full px-3 sm:w-1/2">
+                  <div class="mb-5">
         <form action="update/{{vragen}}" METHOD="POST">
             <textarea name="vraag" style='width:100%;height:200px'>{{vragen}}</textarea>
             <section>        </tr>
     </div>
     <div> 
-        <tr> 
-            <button class="btn btn-primary" type="submit">Update</button>
-         </tr> 
+        <button class="hover:shadow-form rounded-md py-3 px-4 text-center items-center bg-blue-600 text-base font-semibold text-black outline-none"
+        type="submit">Update</button>
+     </tr> 
+     <a class="hover:shadow-form rounded-md py-3 px-4 text-center items-center text-base font-semibold text-black outline-none" href="{{ url_for('menu') }}">Terug naar Dashboard</a>
         </form>
     </table>
 </div>
 </main>  
-
-<script>
-    var regex = /(<br>|&nbsp;)/g;
-    var regex = /(apples|oranges)/g;
-    
-    $('body a, body p').each(function() {
-        var $vragem = $(this);
-        var text = $vragen.text();
-        if (text.match(regex) && $vragen.children().length===0) {
-            $vragen.html(
-                $vragen.html().replace(regex, '<span style="background: #FFFF00;">$1</span>')
-            );
-        }
-    });
-    </script>
+</body>
+</html>

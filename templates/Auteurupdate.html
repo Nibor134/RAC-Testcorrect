@@ -2,34 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Database displayer</title>
+    <title>Auteuren Update</title>
     <meta name="description" content="Simple database display"/>
     <meta name="author" content="Rotterdam Academy"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="/static/bootstrap.css" type="text/css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .body-bg {
+            background-color: #00f7ff;
+            background-image: linear-gradient(330deg, #69f6b4 0%, #5fbe7b 74%);
+        }
+    </style>
 </head>
-<body>
+
+<body class="body-bg min-h-screen  overflow-hidden flex items-center justify-center">
 <main>
+    
     <div class="container"><header>
-        <h1>Update Auteurs</h1>
+        <h1>Update Auteuren</h1>
         <br/>
-        <td>Auteuren</td>
     </header>
         <form action='' method = "POST">
         <table class="table">
         <tr>
         <form action="updateauteurs/{{voornamen}}" METHOD="POST">
-            
-          <section><tr>Voornaam&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tr><input type="text" placeholder="voornaam" name="voornaam" size="50" value = "{{voornamen}}"></section>
+            <div class="-mx-3 flex flex-wrap">
+                <div class="w-full px-3 sm:w-1/2">
+                  <div class="mb-5">
+          <section><tr>Voornaam</tr><input type="text" placeholder="voornaam" name="voornaam" size="50" value = "{{voornamen}}" 
+            class="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none  focus:shadow-md"></section>
           
-          <section><tr>Achternaam&nbsp;&nbsp;&nbsp;&nbsp;</tr><input type="text" placeholder="achternaam" name="achternaam" size="50" value = "{{achternaam}}"></section>
+          <section><tr>Achternaam</tr><input type="text" placeholder="achternaam" name="achternaam" size="50" value = "{{achternaam}}"
+            class="w-full rounded-md border bg-white py-3 px-6 text-base font-medium ] outline-none  focus:shadow-md"
+            ></section>
           
-          <section><tr>Geboortejaar&nbsp;&nbsp;</tr><input type="text" placeholder="geboortejaar" name="geboortejaar" size="50" value = "{{geboortejaar}}"></section>
+          <section><tr>Geboortejaar</tr><input type="text" placeholder="geboortejaar" name="geboortejaar" size="50" value = "{{geboortejaar}}"
+            class="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium  outline-none  focus:shadow-md"
+            ></section>
           
           <section>
             <label for="medewerker">medewerker</label>
 
-                <select name="medewerker" id="auteurs" value = "{{medewerker}}">
+                <select 
+                class="w-full rounded-md border bg-white py-3 px-6 text-base font-medium  outline-none focus:shadow-md"
+                name="medewerker" 
+                id="auteurs" 
+                value = "{{medewerker}}">
                 <option value="1">Externe Partij</option>
                 <option value="0">Medewerker van Test-correct</option>
                 </select>
@@ -37,7 +55,11 @@
         <section>
             <label for="Met pensioen">Met pensioen</label>
 
-                <select name="met pensioen" id="auteurs" required>
+                <select 
+                class="w-full rounded-md border  bg-white py-3 px-6 text-base font-medium outline-none focus:shadow-md"
+                name="met pensioen" 
+                id="auteurs" 
+                required>
                 <option value="1">met pensioen</option>
                 <option value="0">Te contacteren</option>
                 </select>
@@ -46,8 +68,11 @@
     </div>
     <div> 
         <tr> 
-            <button class="btn btn-primary" type="submit">Update</button>
+            <button class="hover:shadow-form rounded-md py-3 px-4 text-center items-center bg-blue-600 text-base font-semibold text-black outline-none"
+            type="submit">Update</button>
          </tr> 
+         <a class="hover:shadow-form rounded-md py-3 px-4 text-center items-center text-base font-semibold text-black outline-none" href="{{ url_for('menu') }}">Terug naar Dashboard</a>
+
         </form>
     </table>
 </div>

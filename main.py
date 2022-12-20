@@ -203,7 +203,7 @@ def auteurencheck(id):
     con.commit()
     con.close
     
-    return render_template('auteureneditor.html', vraag=vraag, auteur=auteur,namen=namen)
+    return render_template('auteureneditor.html', id=id, vraag=vraag, auteur=auteur,namen=namen)
 
 
 
@@ -217,6 +217,7 @@ def leerdoelen():
     rows = cur.fetchall()
     return render_template("leerdoelen.html", rows = rows)
 
+
 @app.route("/editor/leerdoelen/update/<int:id>", methods = ['GET','POST'])
 @login_required
 def leerdoelencheck(id):
@@ -225,18 +226,17 @@ def leerdoelencheck(id):
     if request.method == 'POST':
 
         vragen_id =                              id
-        leerdoel         =               request.form['leerdoel']
-        vraag      =               request.form['vraag']
-        auteur    =               request.form['auteur']
+        leerdoel            =               request.form['leerdoel']
+        vraag               =               request.form['vraag']
+        auteur              =               request.form['auteur']
         
         cur.execute("UPDATE vragen SET leerdoel = ? WHERE id = ?",(leerdoel, vragen_id))
         cur.execute("UPDATE vragen SET vraag = ? WHERE id = ?",(vraag, vragen_id))
         cur.execute("UPDATE vragen SET auteur = ? WHERE id = ?",(auteur, vragen_id))
         con.commit()
         flash("Vraag succesvol aangepast")  
-        return redirect(url_for('leerdoelen'))
+        return redirect(url_for('leerdoelen'),)
 
-    
     
     #Leerdoelen
     cur.execute('SELECT leerdoel FROM leerdoelen WHERE id = 1')
@@ -266,13 +266,11 @@ def leerdoelencheck(id):
     
     return render_template(
         'leerdoeleneditor.html', 
-        leerdoel=leerdoel, vraag=vraag, 
+        leerdoel=leerdoel, id=id, vraag=vraag, 
         auteur=auteur,leerdoel_1=leerdoel_1,
         leerdoel_2=leerdoel_2,leerdoel_3=leerdoel_3, 
         leerdoel_4=leerdoel_4, leerdoel_5=leerdoel_5,
         leerdoel_6=leerdoel_6,leerdoel_7=leerdoel_7)
-
-
 
 @app.route("/editor/cleaner/")
 @login_required
@@ -300,13 +298,13 @@ def update(id):
         con.commit()
         flash("Vraag succesvol aangepast")  
         return redirect(url_for('htmleditor'))
-
+    
     cur.execute('SELECT vraag FROM vragen WHERE ID = ?', (id,))
     vragen = cur.fetchone()[0]
     con.commit()
     con.close
 
-    return render_template('HTMLupdate.html', vragen=vragen)
+    return render_template('HTMLupdate.html', id=id, vragen=vragen)
 
 @app.route("/editor/auteurs", methods=('GET', 'POST'))
 @login_required
