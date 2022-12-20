@@ -14,6 +14,18 @@
 --rc: 8px;
 }
 
+
+/* Darkmode toggle */
+/*
+darkmode:checked,
+darkmode:checked ~ body{
+  --c1:#ce1212;
+  --c2:rgb(0, 0, 0);
+  --c3:rgb(4, 4, 4);
+  --c4:rgb(255, 255, 255);
+  --c5:rgb(6, 6, 6);
+} */
+
 @media (prefers-color-scheme: dark) {
 	:root {
     --c1:#092088;
@@ -41,17 +53,6 @@ body {
     background-color: var(--c3);
     color: var(--c4);
 }
-
-/* Darkmode toggle */
-/*
-darkmode:checked,
-darkmode:checked ~ body{
-  --c1:#ce1212;
-  --c2:rgb(0, 0, 0);
-  --c3:rgb(4, 4, 4);
-  --c4:rgb(255, 255, 255);
-  --c5:rgb(6, 6, 6);
-} */
 
 img, iframe {border: none; max-width: 100%}
 
