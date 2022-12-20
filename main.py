@@ -203,7 +203,7 @@ def auteurencheck(id):
     con.commit()
     con.close
     
-    return render_template('auteureneditor.html', vraag=vraag, auteur=auteur,namen=namen)
+    return render_template('auteureneditor.html', id=id, vraag=vraag, auteur=auteur,namen=namen)
 
 
 
@@ -272,8 +272,6 @@ def leerdoelencheck(id):
         leerdoel_4=leerdoel_4, leerdoel_5=leerdoel_5,
         leerdoel_6=leerdoel_6,leerdoel_7=leerdoel_7)
 
-
-
 @app.route("/editor/cleaner/")
 @login_required
 def htmleditor():
@@ -306,7 +304,7 @@ def update(id):
     con.commit()
     con.close
 
-    return render_template('HTMLupdate.html', vragen=vragen)
+    return render_template('HTMLupdate.html', id=id, vragen=vragen)
 
 @app.route("/editor/auteurs", methods=('GET', 'POST'))
 @login_required
