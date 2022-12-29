@@ -8,6 +8,8 @@ import os.path
 #select * from leerdoelen
 #select * from vragen
 
+# .,
+
 DATABASE = os.path.join('databases', 'testcorrect_vragen.db')
 
 def csv_auteurs():
