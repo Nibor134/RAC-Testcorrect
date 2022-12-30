@@ -28,12 +28,13 @@ app.secret_key = 'Hogeschoolrotterdam'
 DATABASE = os.path.join(app.root_path, 'databases', 'testcorrect_vragen.db')
 dbm = DatabaseModel(DATABASE)
 
+# Logging in with Flask login
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 
 class LoginForm(FlaskForm):
- username = StringField('Username',validators=[DataRequired()])
- password = PasswordField('Password',validators=[DataRequired()])
+ username = StringField('Gebruikersnaam',validators=[DataRequired()])
+ password = PasswordField('Wachtwoord',validators=[DataRequired()])
  remember = BooleanField('Remember Me')
  submit = SubmitField('Login')
  def validate_username(self, username):
@@ -72,6 +73,7 @@ def load_user(user_id):
     else:
       return User(int(lu[0]), lu[1], lu[2])
 
+# Login screen
 @app.route("/login", methods=['GET','POST'])
 def login():
   if current_user.is_authenticated:
@@ -92,7 +94,7 @@ def login():
   return render_template('login.html',title='Login', form=form,greeting=greeting)
 
 
-
+# Dashboard menu
 @app.route("/menu", methods=('GET', 'POST'))
 @login_required
 def menu():
@@ -148,6 +150,7 @@ def index():
         "tables.html", table_list=tables, database_file=DATABASE
     )
 
+# CSV output
 @app.route("/Download#1", methods=('GET', 'POST'))
 @login_required
 def csv_auteuren():
@@ -166,6 +169,7 @@ def csv_vraag():
         
         return send_file('Export/output_vragen.csv', mimetype='text/csv')
 
+# Edit screen for auteuren 
 @app.route("/editor/auteuren", methods=('GET', 'POST'))
 @login_required
 def auteuren():
@@ -207,7 +211,7 @@ def auteurencheck(id):
     return render_template('auteureneditor.html', id=id, vraag=vraag, auteur=auteur, rows = rows)
 
 
-
+# Edit screen for leerdoelen
 @app.route("/editor/leerdoelen", methods=('GET', 'POST'))
 @login_required
 def leerdoelen():
@@ -273,6 +277,7 @@ def leerdoelencheck(id):
         leerdoel_4=leerdoel_4, leerdoel_5=leerdoel_5,
         leerdoel_6=leerdoel_6,leerdoel_7=leerdoel_7)
 
+# Editor screen for html
 @app.route("/editor/cleaner/")
 @login_required
 def htmleditor():
@@ -307,6 +312,7 @@ def update(id):
 
     return render_template('HTMLupdate.html', id=id, vragen=vragen)
 
+# Edit screen for auteurs
 @app.route("/editor/auteurs", methods=('GET', 'POST'))
 @login_required
 def auteureditor():
@@ -357,6 +363,7 @@ def updateauteurs(id):
     return render_template('Auteurupdate.html', voornamen=voornamen,achternaam=achternaam, geboortejaar=geboortejaar, medewerker=medewerker,metpensioen=metpensioen)
 
 
+# Edit screen for null vallues in leerdoelen
 @app.route("/editor/NullorNotnullLeer", methods=('GET', 'POST'))
 def NullornotNullLeer():
     
@@ -367,6 +374,7 @@ def NullornotNullLeer():
     rows = cur.fetchall()  
     return render_template("NullornotNullleer.html",rows = rows)
 
+# Edit screen for null vallues in auteurs
 @app.route("/editor/NullorNotnullAu", methods=('GET', 'POST'))
 @login_required
 def NullornotNullAu():
