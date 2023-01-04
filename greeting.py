@@ -12,4 +12,3 @@ def get_greeting():
     return "Goedeavond"
 
 greeting = get_greeting()
-print(greeting)

@@ -24,5 +24,4 @@ def show_time_in_dutch():
   # Print the current time and date in Dutch
   return (f"Het is nu {dutch_day_name}, {current_time.strftime('%H:%M:%S')}")
    
-# Test the function
 
