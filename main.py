@@ -1,6 +1,5 @@
 import os.path
 import sqlite3
-#import pandas as pd 
 import os.path
 from flask import Flask
 from flask import render_template, url_for, flash, request, redirect, send_file
@@ -9,10 +8,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, ValidationError
 from lib.tablemodel import DatabaseModel
-#from lib.demodatabase import create_demo_database
 from greeting import get_greeting
 from Dayandtime import show_time_in_dutch
-#from CSV_Export import csv_auteurs,csv_leerdoelen,csv_vragen
+
 
 #Flask Settings
 LISTEN_ALL = "0.0.0.0"
@@ -29,6 +27,7 @@ dbm = DatabaseModel(DATABASE)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 
+#Flaskform Login
 class LoginForm(FlaskForm):
  username = StringField('Username',validators=[DataRequired()])
  password = PasswordField('Password',validators=[DataRequired()])
@@ -70,6 +69,7 @@ def load_user(user_id):
     else:
       return User(int(lu[0]), lu[1], lu[2])
 
+#Login Route
 @app.route("/login", methods=['GET','POST'])
 def login():
   if current_user.is_authenticated:
@@ -89,7 +89,7 @@ def login():
         flash('Login Unsuccessfull.')
   return render_template('login.html',title='Login', form=form,greeting=greeting)
 
-
+#Dashboard Route
 @app.route("/menu", methods=('GET', 'POST'))
 @login_required
 def menu():
@@ -137,6 +137,7 @@ def menu():
      count=count, count2=count2, count3=count3,
      count4=count4, count5=count5, count6=count6, Today=Today, countvragen=countvragen, countleerdoelen=countleerdoelen, countauteurs=countauteurs)
 
+#Route for All Tables
 @app.route("/tables")
 @login_required
 def index():
@@ -145,24 +146,29 @@ def index():
         "tables.html", table_list=tables, database_file=DATABASE
     )
 
+
+#Download route for Export auteurs
 @app.route("/Download#1", methods=('GET', 'POST'))
 @login_required
 def csv_auteuren():
         
         return send_file('Export/output_auteurs.csv', mimetype='text/csv')
 
+#Download route for Export leerdoelen
 @app.route("/Download#2", methods=('GET', 'POST'))
 @login_required
 def csv_leerdoel():
         
         return send_file('Export/output_leerdoelen.csv', mimetype='text/csv')
 
+#Download route for Export vrageh
 @app.route("/Download", methods=('GET', 'POST'))
 @login_required
 def csv_vraag():
         
         return send_file('Export/output_vragen.csv', mimetype='text/csv')
 
+#Route for list of questions who's authors are not listed in Tables Authors
 @app.route("/editor/auteuren", methods=('GET', 'POST'))
 @login_required
 def auteuren():
@@ -173,6 +179,7 @@ def auteuren():
     rows = cur.fetchall()
     return render_template("Auteuren.html", rows = rows)
 
+#Update Route for Authors
 @app.route("/editor/auteuren/update/<int:id>", methods = ['GET','POST'])
 @login_required
 def auteurencheck(id):
@@ -203,8 +210,7 @@ def auteurencheck(id):
     
     return render_template('auteureneditor.html', id=id, vraag=vraag, auteur=auteur, rows = rows)
 
-
-
+#Route for list of questions where learning objective are not listed in Tables learning objectives
 @app.route("/editor/leerdoelen", methods=('GET', 'POST'))
 @login_required
 def leerdoelen():
@@ -215,7 +221,7 @@ def leerdoelen():
     rows = cur.fetchall()
     return render_template("leerdoelen.html", rows = rows)
 
-
+#Route for updating learning objectives
 @app.route("/editor/leerdoelen/update/<int:id>", methods = ['GET','POST'])
 @login_required
 def leerdoelencheck(id):
@@ -270,6 +276,7 @@ def leerdoelencheck(id):
         leerdoel_4=leerdoel_4, leerdoel_5=leerdoel_5,
         leerdoel_6=leerdoel_6,leerdoel_7=leerdoel_7)
 
+#Route for list of questions that contain HTML Escape codes
 @app.route("/editor/cleaner/")
 @login_required
 def htmleditor():
@@ -280,7 +287,7 @@ def htmleditor():
     rows = cur.fetchall()  
     return render_template("HTMLeditor.html",rows = rows)
 
-
+#Route for updating questions with HTML escape codes
 @app.route("/editor/htmlcleaner/update/<int:id>", methods = ['GET','POST'])
 @login_required
 def update(id):
@@ -304,6 +311,7 @@ def update(id):
 
     return render_template('HTMLupdate.html', id=id, vragen=vragen)
 
+#Route for list of all existing Authors
 @app.route("/editor/auteurs", methods=('GET', 'POST'))
 @login_required
 def auteureditor():
@@ -315,6 +323,7 @@ def auteureditor():
     rows = cur.fetchall()  
     return render_template("Auteureditor.html",rows = rows)
 
+#Route for updating of all existing Authors
 @app.route("/editor/auteurs/update/<int:id>", methods = ['GET','POST'])
 @login_required
 def updateauteurs(id):
@@ -353,7 +362,7 @@ def updateauteurs(id):
     
     return render_template('Auteurupdate.html', voornamen=voornamen,achternaam=achternaam, geboortejaar=geboortejaar, medewerker=medewerker,metpensioen=metpensioen)
 
-
+#Route for a list of questions where learning objectives are empty
 @app.route("/editor/NullorNotnullLeer", methods=('GET', 'POST'))
 def NullornotNullLeer():
     
@@ -364,6 +373,7 @@ def NullornotNullLeer():
     rows = cur.fetchall()  
     return render_template("NullornotNullleer.html",rows = rows)
 
+#Route for a list of questions where Authors are empty
 @app.route("/editor/NullorNotnullAu", methods=('GET', 'POST'))
 @login_required
 def NullornotNullAu():
@@ -387,25 +397,16 @@ def table_content(table_name=None):
             "table_details.html", rows=rows, columns=column_names, table_name=table_name
         )
 
+#Route for logout
 @app.route("/logout")
 def logout():
     logout_user()
     return redirect("login")
 
+#Redirecting route 
 @app.route("/")
 def redirectpage():
     return redirect("login")
 
-
 if __name__ == "__main__":
     app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)
-
-#CSV export
-#connection = sqlite3.connect('testcorrect_vragen.db')
-#cursor = connection.cursor()
-#sqlquery = 'SELECT * FROM auteurs'
-#cursor.execute(sqlquery)
-#result = cursor.fetchall()
-#for row in result: 
-#    df = pd.read_sql_query(sqlquery,connection)
-#    df.to_csv('output.CSV', index = False)
