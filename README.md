@@ -129,7 +129,7 @@ http://127.0.0.1:81
 ```
 2. Log in met uw inloggegevens, huidige voor- en achternaam van de studenten.
 
-3. Ga met de muis over "Vragen aanpassen" om naar de lijst met voorkeursvragen te gaan
+3. Ga met de muis over "Vragen aanpassen" om naar de lijst met vragen die aangepast dienen te worden te gaan
 
 5. Klik op de knop "Edit" om de vragentabel te bewerken
 
@@ -148,6 +148,3 @@ Max Looij
 Stan Verdoorn
 Robin Winkels
 ```
-Meer over deze brontekstBrontekst vereist voor aanvullende vertaalinformatie
-Feedback sturen
-Zijvensters
