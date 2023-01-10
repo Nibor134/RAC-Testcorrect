@@ -232,11 +232,11 @@ def leerdoelencheck(id):
         vragen_id =                              id
         leerdoel            =               request.form['leerdoel']
         vraag               =               request.form['vraag']
-        auteur              =               request.form['auteur']
+        
         
         cur.execute("UPDATE vragen SET leerdoel = ? WHERE id = ?",(leerdoel, vragen_id))
         cur.execute("UPDATE vragen SET vraag = ? WHERE id = ?",(vraag, vragen_id))
-        cur.execute("UPDATE vragen SET auteur = ? WHERE id = ?",(auteur, vragen_id))
+       
         con.commit()
         flash("Vraag succesvol aangepast")  
         return redirect(url_for('leerdoelen'),)
