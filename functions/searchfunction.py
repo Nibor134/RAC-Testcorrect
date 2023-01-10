@@ -12,9 +12,9 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from lib.tablemodel import DatabaseModel
 from lib.demodatabase import create_demo_database
-from greeting import get_greeting
-from Dayandtime import show_time_in_dutch
-from CSV_Export import csv_auteurs,csv_leerdoelen,csv_vragen
+from functions.greeting import get_greeting
+from functions.Dayandtime import show_time_in_dutch
+from functions.CSV_Export import csv_auteurs,csv_leerdoelen,csv_vragen
 
 #Flask Settings
 LISTEN_ALL = "0.0.0.0"

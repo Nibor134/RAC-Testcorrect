@@ -8,8 +8,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, ValidationError
 from lib.tablemodel import DatabaseModel
-from greeting import get_greeting
-from Dayandtime import show_time_in_dutch
+from functions.greeting import get_greeting
+from functions.Dayandtime import show_time_in_dutch
 
 
 # Flask Settings
