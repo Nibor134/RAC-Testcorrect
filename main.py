@@ -294,11 +294,8 @@ def update(id):
     con = sqlite3.connect(DATABASE)
     cur = con.cursor()
     if request.method == 'POST':
-
         vragen_id =             id
-        #vragen_leerdoel =   request.form['leerdoel']
         vragen_vraag =          request.form['vraag']
-        #vragen_auteur =     request.form['auteur']
         cur.execute("UPDATE vragen SET vraag = ? WHERE id = ?",(vragen_vraag,vragen_id))
         con.commit()
         flash("Vraag succesvol aangepast")  

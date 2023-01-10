@@ -1,4 +1,4 @@
-
+English, scroll down for Dutch
 # Introduction
 Welcome to the Testcorrect CRUD application! This application allows you to perform basic CRUD operations on a set of tables in a database.
 
@@ -71,3 +71,83 @@ Max Looij
 Stan Verdoorn
 Robin Winkels
 ```
+
+
+
+Dutch
+
+# Introductie
+Welkom bij de Testcorrect CRUD-applicatie! Met deze applicatie kunt u basis CRUD-bewerkingen uitvoeren op een set tabellen in een database.
+
+# Vereisten
+Controleer voordat u begint of de volgende vereisten zijn geïnstalleerd:
+```
+Python 3.x
+Flask
+flask_wtf
+SQLite3
+flask_login
+wtf-forms
+```
+
+# Installatie
+
+Volg deze stappen om de applicatie te installeren:
+
+1. Kloon de repository naar uw lokale computer:
+```
+git kloon https://github.com/Rac-Software-Development/werkplaats-2-mvc-hbo22sfd
+```
+
+2. Navigeer naar de repository-directory
+```
+cd werkplaats-2-mvc-hbo22sfd
+```
+
+3. Creëer en activeer de virtuele omgeving:
+```
+python -m venv venv
+.\venv\scripts\activate
+```
+
+5. Installeer de benodigde onderdelen:
+```
+pip install -r requirements.txt
+```
+
+6. Start de applicatie:
+```
+python main.py
+```
+
+
+# Gebruikershandleiding
+1. Navigeer naar de startpagina in uw webbrowser:
+ 
+```
+http://127.0.0.1:81
+```
+2. Log in met uw inloggegevens, huidige voor- en achternaam van de studenten.
+
+3. Ga met de muis over "Vragen aanpassen" om naar de lijst met voorkeursvragen te gaan
+
+5. Klik op de knop "Edit" om de vragentabel te bewerken
+
+6. U kunt de geselecteerde items in de tabel bijwerken.
+
+7. Klik op "Save" om de wijzigingen in de database te bewaren
+
+8. U kunt alle tabellen bekijken door naar http://127.0.0.1:81/tables te gaan
+
+# License
+Dit project is gelicentieerd onder de MIT-licentie - zie het LICENSE-bestand voor details.
+
+# Credits
+```
+Max Looij
+Stan Verdoorn
+Robin Winkels
+```
+Meer over deze brontekstBrontekst vereist voor aanvullende vertaalinformatie
+Feedback sturen
+Zijvensters
