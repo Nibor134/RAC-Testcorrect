@@ -1,2 +1,5 @@
 Flask
 pi
+flask-wtf
+flask-login
+wtf-forms
