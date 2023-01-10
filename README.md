@@ -4,13 +4,14 @@ Welcome to the Testcorrect CRUD application! This application allows you to perf
 
 # Prerequisites
 Before you begin, make sure you have the following requirements installed:
-
+```
 Python 3.x
 Flask
 flask_wtf
 SQLite3
 flask_login
 wtf-forms
+```
 
 # Installation
 
@@ -65,7 +66,8 @@ http://127.0.0.1:81
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 # Credits
-
+```
 Max Looij
 Stan Verdoorn
 Robin Winkels
+```
