@@ -18,7 +18,7 @@ To install the application, follow these steps:
 
 1. Clone the repository to your local machine:
 ```
-git clone
+git clone https://github.com/Rac-Software-Development/werkplaats-2-mvc-hbo22sfd
 ```
 
 2. Navigate to the repository directory
